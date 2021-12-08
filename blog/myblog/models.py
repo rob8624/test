@@ -46,3 +46,17 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+
+#add cutoms model managers so we can use for example Post.published.all() instead of post.objects.all()
+#also added a model manager to only show posts marked High importance, which can ber used to show certain post as
+#featured
+
+class PublishedManager(models.Manager):
+    def get_queryset(self):
+        return super(PublishedManager, self).get_queryset().filter(status='published')
+
+class HighManager(models.Manager):
+    def get_queryset(self):
+        return super(HighManager, self).get.queryset().filter(importance='High')
+
