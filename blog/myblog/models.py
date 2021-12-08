@@ -3,6 +3,22 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.utils.safestring import mark_safe
 
+#add cutoms model managers so we can use for example Post.published.all() instead of post.objects.all()
+#also added a model manager to only show posts marked High importance, which can ber used to show certain post as
+#featured
+
+class PublishedManager(models.Manager):
+    def get_queryset(self):
+        return super(PublishedManager, self).get_queryset().filter(status='published')
+
+class FeaturedManager(models.Manager):
+    def get_queryset(self):
+        return super(FeaturedManager, self).get.queryset().filter(featured='Yes')
+
+
+
+
+
 
 #define Post model
 
@@ -12,11 +28,10 @@ class Post(models.Model):
         ('unpublished', 'Unpublished'),
     )
 
-    IMPORTANCE = (
-        ('high', 'High'),
-        ('medium', 'medium'),
-        ('low', 'Low'),
-    )
+    FEATURED = (
+        ('yes', 'Yes'),
+        ('no', 'No'),
+        )
 
     title = models.CharField(max_length=250, null=False, blank=False)
     summary = models.CharField(max_length=100)
@@ -29,7 +44,11 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     edited = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=50, choices=STATUS, default='unpublished')
-    importance = models.CharField(max_length=50, choices=IMPORTANCE, default='high')
+    featured = models.CharField(max_length=50, choices=FEATURED, default='no')
+    #model managers
+    objects = models.Manager()
+    published = PublishedManager()
+    feature = FeaturedManager()
 
     # function that returns author_image to admin site
     def image_tag(self):
@@ -47,16 +66,4 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-
-#add cutoms model managers so we can use for example Post.published.all() instead of post.objects.all()
-#also added a model manager to only show posts marked High importance, which can ber used to show certain post as
-#featured
-
-class PublishedManager(models.Manager):
-    def get_queryset(self):
-        return super(PublishedManager, self).get_queryset().filter(status='published')
-
-class HighManager(models.Manager):
-    def get_queryset(self):
-        return super(HighManager, self).get.queryset().filter(importance='High')
 
