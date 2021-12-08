@@ -13,7 +13,7 @@ class PublishedManager(models.Manager):
 
 class FeaturedManager(models.Manager):
     def get_queryset(self):
-        return super(FeaturedManager, self).get.queryset().filter(featured='Yes')
+        return super(FeaturedManager, self).get_queryset().filter(featured=True)
 
 
 
@@ -28,15 +28,15 @@ class Post(models.Model):
         ('unpublished', 'Unpublished'),
     )
 
-    FEATURED = (
-        ('yes', 'Yes'),
-        ('no', 'No'),
-        )
+    #FEATURED = (
+        #('yes', 'Yes'),
+        #('no', 'No'),
+       # )
 
     title = models.CharField(max_length=250, null=False, blank=False)
-    summary = models.CharField(max_length=100)
+    summary = models.CharField(max_length=100, blank=True)
     slug = models.SlugField(unique_for_date='publish')
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='bog_posts')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
     author_image = models.ImageField(upload_to='images/authors/', null=True, blank=True)
     # CASCADE means when a user is deleted so are all their blog posts
     body = models.CharField(max_length=5000, null=False, blank=False)
@@ -44,7 +44,8 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     edited = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=50, choices=STATUS, default='unpublished')
-    featured = models.CharField(max_length=50, choices=FEATURED, default='no')
+    #featured = models.CharField(max_length=50, choices=FEATURED, default='no')
+    featured = models.BooleanField(default=False)
     #model managers
     objects = models.Manager()
     published = PublishedManager()
