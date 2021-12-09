@@ -8,7 +8,7 @@ class AuthorAdmin(admin.ModelAdmin):
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'author', 'image_tag', 'slug', 'publish', 'status', 'featured')
+    list_display = ('title', 'author', 'slug', 'publish', 'status', 'featured')
     list_filter = ('author', 'publish', 'featured', 'status')
     search_fields = ('title', 'summary', 'author')
     prepopulated_fields = {'slug': ('title',)}
@@ -20,4 +20,4 @@ class PostAdmin(admin.ModelAdmin):
 
 
 
-# Register your models here.
+

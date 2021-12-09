@@ -40,25 +40,17 @@ class Post(models.Model):
     summary = models.CharField(max_length=100, blank=True)
     slug = models.SlugField(unique_for_date='publish')
     author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='blog_posts')
-    author_image = models.ImageField(upload_to='images/authors/', null=True, blank=True)
     # CASCADE means when a user is deleted so are all their blog posts
     body = models.CharField(max_length=5000, null=False, blank=False)
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     edited = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=50, choices=STATUS, default='unpublished')
-    #featured = models.CharField(max_length=50, choices=FEATURED, default='no')
     featured = models.BooleanField(default=False)
     #model managers
     objects = models.Manager()
     published = PublishedManager()
     feature = FeaturedManager()
-
-    # function that returns author_image to admin site
-    def image_tag(self):
-        return mark_safe('<img src="/../../media/%s" width="50" height="50" />' % (self.author_image))
-
-    image_tag.allow_tags = True
 
     #Model metadata is “anything that’s not a field”, such as ordering options (ordering), database table name (db_table),
     # or human-readable singular and plural names (verbose_name and verbose_name_plural).
