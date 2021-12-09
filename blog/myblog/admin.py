@@ -1,5 +1,11 @@
 from django.contrib import admin
-from .models import Post
+from .models import Post, Author
+
+@admin.register(Author)
+class AuthorAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email')
+
+
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'image_tag', 'slug', 'publish', 'status', 'featured')

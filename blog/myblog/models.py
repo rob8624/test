@@ -18,7 +18,15 @@ class FeaturedManager(models.Manager):
 
 
 
+#define author model
 
+class Author(models.Model):
+    name = models.CharField(max_length=100, null=True, blank=True)
+    email = models.EmailField(max_length=70,blank=True,unique=True)
+    bio = models.TextField(max_length=200, null=True, blank=True)
+
+    def __str__(self):
+        return self.name
 
 #define Post model
 
@@ -28,15 +36,10 @@ class Post(models.Model):
         ('unpublished', 'Unpublished'),
     )
 
-    #FEATURED = (
-        #('yes', 'Yes'),
-        #('no', 'No'),
-       # )
-
     title = models.CharField(max_length=250, null=False, blank=False)
     summary = models.CharField(max_length=100, blank=True)
     slug = models.SlugField(unique_for_date='publish')
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='blog_posts')
     author_image = models.ImageField(upload_to='images/authors/', null=True, blank=True)
     # CASCADE means when a user is deleted so are all their blog posts
     body = models.CharField(max_length=5000, null=False, blank=False)
