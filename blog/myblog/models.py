@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.utils.safestring import mark_safe
+from django.urls import reverse
 
 #add cutoms model managers so we can use for example Post.published.all() instead of post.objects.all()
 #also added a model manager to only show posts marked High importance, which can ber used to show certain post as
@@ -13,7 +14,7 @@ class PublishedManager(models.Manager):
 
 class FeaturedManager(models.Manager):
     def get_queryset(self):
-        return super(FeaturedManager, self).get_queryset().filter(featured=True)
+        return super(FeaturedManager, self).get_queryset().filter(featured=True, status='published')
 
 
 
@@ -59,7 +60,15 @@ class Post(models.Model):
     class Meta:
         ordering = ('-publish',)
 
+    # returs a strinf of the class(what appears in admin page to represent model
     def __str__(self):
         return self.title
+
+    # method to return the canonical URL for the model
+    def get_absolute_url(self):
+        return reverse('myblog:post_detail', args=[self.publish.year,
+                                                   self.publish.month,
+                                                   self.publish.day,
+                                                   self.slug])
 
 

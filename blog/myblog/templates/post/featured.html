@@ -1,0 +1,15 @@
+{% extends "blog/base.html" %}
+{% block title %}{% endblock %}
+{% block content %}
+{% for post in featured %}
+    <h4>
+        <a href="{{ post.get_absolute_url }}">
+            {{ post.title }}
+        </a>
+    </h4>
+    <p>
+        <small><em>Published {{ post.publish }} by {{ post.author }}</small></em>
+    </p>
+    {{ post.body|truncatewords:30|linebreaks }}
+{% endfor %}
+{% endblock %}
