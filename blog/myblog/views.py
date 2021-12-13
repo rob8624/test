@@ -1,23 +1,14 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Post
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.generic import ListView
 
+class PostListView(ListView):
+    queryset = Post.published.all()
+    context_object_name = 'posts'
+    paginate_by = 3
+    template_name = 'post/list.html'
 
-def post_list(request):
-    obeject_list = Post.published.all()
-    paginator = Paginator(obeject_list, 3) #3 posts in each page
-    page = request.GET.get('page')
-    try:
-        posts = paginator.page(page)
-    except PageNotAnInteger:
-            # if page is not an integer deliver the first page
-        posts = paginator.page(1)
-    except EmptyPage:
-            #if page is out of range deliver last page of results
-        posts = paginator.page(paginator.num_pages)
-    return render(request, 'post/list.html',
-                  {'page': page,
-                   'posts': posts})
 
 
 def post_detail(request, year, month, day, post):
@@ -26,9 +17,13 @@ def post_detail(request, year, month, day, post):
     return render(request, 'post/detail.html',
                   {'post': post})
 
-def post_featured(request):
-    featured = Post.feature.all()
-    return render(request, 'post/featured.html',
-                  {'featured': featured},)
+class PostFeaturedView(ListView):
+    queryset = Post.feature.all()
+    context_object_name = 'featured'
+    paginate_by = 3
+    template_name = 'post/featured.html'
+    #featured = Post.feature.all()
+    #return render(request, 'post/featured.html',
+                  #{'featured': featured},)
 
 

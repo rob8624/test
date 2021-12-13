@@ -22,7 +22,7 @@
         <nav class="nav-show">
             <div class="container">
                 <ul>
-                    <li><a href="#home">Robert Melen</a></li>
+                    <li><a href="{% url 'myblog:post_list' %}">Robert Melen</a></li>
                     <li><a href="#spoilers">Blog</a></li>
                     <li>
                         <a href="#decks">Images</a>
@@ -51,7 +51,7 @@
         </nav>
         <div class="container">
             <div class="row">
-                <div class="twelve columns" style="padding:50px;">
+                <div class="twelve columns" style="padding:50px; text-align: center; ">
                     <h3>A blog by photographer, Robert Melen</h3>
                     <hr class="solid">
                 </div>
@@ -59,20 +59,11 @@
         </div>
         <div class="container">
             <div class="row">
-				<div class="four columns" style="padding:50px;">
+				<div class="twelve columns" style="padding:50px; text-align: center; ">
 
 					{% block content %}
                     {% endblock %}
                 </div>
-                <div class="four columns" style="padding:50px;">
-                    <h4>Robert Melen</h4>
-                    <p>
-                        <small>Photographer.</small>
-                        <p><small>
-                    Press/Editorial/PR/Events</p></small>
-                    </p>
-                </div>
-
             </div>
         </div>
     </body>
