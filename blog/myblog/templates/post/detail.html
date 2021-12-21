@@ -1,4 +1,5 @@
 {% extends "blog/base.html" %}
+{% load widget_tweaks %}
 {% block title %}{{ post.title }}{% endblock %}
 {% block content %}
     <h1>{{ post.title }}</h1>
@@ -13,7 +14,7 @@
 </p>
 {% with comments.count as total_comments %}
     <h5>
-        {{ total.comments }} comments{{ total_comments|pluralize }}
+        {{ total.comments }} comment{{ total_comments|pluralize }}
     </h5>
 {% endwith %}
 {% for comment in comments %}
@@ -31,12 +32,19 @@
     <h3>Your comment has bee added. Thanks!</h3>
 {% else %}
     <h5>Add a new comment about this post</h5>
+<div class="form-box"">
+    <h4>Add a comment about this post</h4>
     <form method="post" style="border-bottom: 2px solid black;">
-        {{ comment_form.as_p}}
-
+        <label class="label">Name</label>
+        {% render_field comment_form.name class="input" placeholder="Your name" %}
+        <label class="label">Email</label>
+        {% render_field comment_form.email class="input" placeholder="example@example.com" %}
+        <label class="label">Message</label>
+        {% render_field comment_form.body class="textarea" placeholder="This post is...." %}
         {% csrf_token %}
-        <p><input type="submit" value="Add comment"></p>
+        <p><input class="button-primary" type="submit" value="Submit" />
     </form>
+</div>
 
 {% endif %}
 {% endblock %}
