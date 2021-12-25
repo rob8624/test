@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.utils.safestring import mark_safe
 from django.urls import reverse
+from taggit.managers import TaggableManager
 
 #add cutoms model managers so we can use for example Post.published.all() instead of post.objects.all()
 #also added a model manager to only show posts marked High importance, which can ber used to show certain post as
@@ -52,7 +53,7 @@ class Post(models.Model):
     objects = models.Manager()
     published = PublishedManager()
     feature = FeaturedManager()
-
+    tags = TaggableManager(verbose_name="Add Tags", help_text="Use comma to separate")
     #Model metadata is “anything that’s not a field”, such as ordering options (ordering), database table name (db_table),
     # or human-readable singular and plural names (verbose_name and verbose_name_plural).
     # None are required, and adding class Meta to a model is completely optional.

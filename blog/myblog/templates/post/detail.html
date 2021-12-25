@@ -7,14 +7,24 @@
         <small>Published {{ post.publish }} by {{ post.author }}</small>
     </p>
     {{ post.body|linebreaks }}
+<div style="margin-bottom: 4rem;">
 <p>
     <a href="{% url 'myblog:post_share' post.id %}">
     Share this post
     </a>
 </p>
+</div>
+<h6>Similar posts</h6>
+{% for post in similar_posts %}
+    <div style="display: inline-block; padding: 0px 10px; margin-bottom: 4rem; ">
+        <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+    </div>
+{%  empty %}
+    There are no similar posts
+{% endfor %}
 {% with comments.count as total_comments %}
     <h5>
-        {{ total.comments }} comment{{ total_comments|pluralize }}
+        {{ total.comments }} Comment{{ total_comments|pluralize }}
     </h5>
 {% endwith %}
 {% for comment in comments %}
@@ -31,10 +41,9 @@
 {% if new_comment %}
     <h3>Your comment has bee added. Thanks!</h3>
 {% else %}
-    <h5>Add a new comment about this post</h5>
-<div class="form-box"">
+<div class="form-box">
     <h4>Add a comment about this post</h4>
-    <form method="post" style="border-bottom: 2px solid black;">
+    <form method="post">
         <label class="label">Name</label>
         {% render_field comment_form.name class="input" placeholder="Your name" %}
         <label class="label">Email</label>
@@ -45,6 +54,5 @@
         <p><input class="button-primary" type="submit" value="Submit" />
     </form>
 </div>
-
 {% endif %}
 {% endblock %}
