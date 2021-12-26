@@ -1,7 +1,5 @@
-<ul>
+<h6 style="display: inline-block">
     {% for post in featured_posts %}
-        <li>
-            <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-        </li>
+        <a class="button" href="{{ post.get_absolute_url }}">{{ post.title }}</a>
     {% endfor %}
-</ul>
+</h6>

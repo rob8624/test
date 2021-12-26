@@ -1,3 +1,4 @@
+{% load blog_tags %}
 {% load static %}
 {% load widget_tweaks %}
 <!DOCTYPE html>
@@ -43,8 +44,8 @@
                             <li><a href="#">My Shop</a></li>
                         </ul>
                     </li>
-                    <li class="u-pull-right"><a href="#login">Login</a></li>
-                    <li class="right"><a href="#register">Register</a></li>
+                    <li class="u-pull-right" style="padding: 1%;"><a class="button button-primary" href="#login">Login</a></li>
+                    <li class="right" style="padding: 1%;" ><a class="button button-primary" href="#register">Register</a></li>
                     <li class="icon">
                         <a href="javascript:void(0);" onclick="toggleMobileNav();">&#9776;</a>
                     </li>
@@ -53,24 +54,36 @@
         </nav>
         <div class="container">
             <div class="row">
-                <div class="twelve columns" style="padding:50px; text-align: center; ">
-                    <h3>A blog by photographer, Robert Melen</h3>
+                <div class="twelve columns" style="text-align: center; clear: right; margin-top: -50px;">
+                    <hr class="solid">
+                    <h3 style="letter-spacing: 3px;">A blog by photographer, <strong>Robert Melen</strong></h3>
+                    <h6>Welcome to my Blog. There are {% total_posts %} published articles</h6>
+                    <h6>Subscribe</h6>
                     <hr class="solid">
                 </div>
             </div>
         </div>
         <div class="container">
             <div class="row">
-				<div class="twelve columns" style="padding:50px; text-align: center; ">
+                <div class="six columns" style="text-align: center;">
+                    <h6>Featured Posts</h6>
+                    {% featured_posts 5 %}
+                </div>
+                <div class="six columns" style="text-align: center;">
+                    <h6>Latest Posts</h6>
+                    {% show_latest_posts 3 %}
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="twelve columns" style="padding:50px; text-align: center; ">
                     {% block content %}
                     {% endblock %}
                 </div>
             </div>
         </div>
-    </body>
-
-
-
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="/static/js/gh.js"></script>
 </html>

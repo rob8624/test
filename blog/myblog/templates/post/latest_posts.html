@@ -1,7 +1,5 @@
-<ul>
+<H6>
     {% for post in latest_posts %}
-        <li>
-            <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-        </li>
+        <a class="button" href="{{ post.get_absolute_url }}">{{ post.title }}</a>
     {% endfor %}
-</ul>
+</H6>
