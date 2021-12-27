@@ -46,6 +46,14 @@ def post_detail(request, year, month, day, post):
                              publish__day=day)
     # list of active comments for this post
     comments = post.comments.filter(active=True)
+    paginator = Paginator(comments, 3)
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
     new_comment = None
     if request.method == 'POST':
         # A comment was posted
@@ -64,10 +72,11 @@ def post_detail(request, year, month, day, post):
     similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags', '-publish')[:4]
     return render(request, 'post/detail.html',
                   {'post': post,
-                   'comments' : comments,
+                   'posts' : posts,
                    'new_comment' : new_comment,
                    'comment_form' : comment_form,
-                   'similar_posts' : similar_posts})
+                   'similar_posts' : similar_posts,
+                    })
 
 
 class PostFeaturedView(ListView):
