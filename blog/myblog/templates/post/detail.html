@@ -22,12 +22,15 @@
 {%  empty %}
     There are no similar posts
 {% endfor %}
+{% if check %}
+<div style="border-style: groove;">
 {% with comments.count as total_comments %}
     <h5>
-        {{ total.comments }} Comment{{ total_comments|pluralize }}
+        {{ total.comments }} Comments{{ total_comments|pluralize }}
     </h5>
 {% endwith %}
-{% for comment in comments %}
+
+{% for comment in posts %}
     <div class="comment">
         <p class="info">
             Comment {{ forloop.counter }} by {{ comment.name }}
@@ -35,9 +38,13 @@
         </p>
         {{ comment.body|linebreaks }}
     </div>
+
+
 {% empty %}
+
     <p>There are no comments yet</p>
 {% endfor %}
+{% include "pagination.html" with page=posts %}
 {% if new_comment %}
     <h3>Your comment has bee added. Thanks!</h3>
 {% else %}
@@ -54,5 +61,7 @@
         <p><input class="button-primary" type="submit" value="Submit" />
     </form>
 </div>
+</div>
+{% endif %}
 {% endif %}
 {% endblock %}

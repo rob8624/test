@@ -44,6 +44,7 @@ class PostListView(ListView):
 def post_detail(request, year, month, day, post):
     post = get_object_or_404(Post, slug=post, status='published', publish__year=year, publish__month=month,
                              publish__day=day)
+    check = post.comments_option
     # list of active comments for this post
     comments = post.comments.filter(active=True)
     paginator = Paginator(comments, 3)
@@ -76,6 +77,7 @@ def post_detail(request, year, month, day, post):
                    'new_comment' : new_comment,
                    'comment_form' : comment_form,
                    'similar_posts' : similar_posts,
+                   'check' : check
                     })
 
 

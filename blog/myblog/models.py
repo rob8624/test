@@ -49,6 +49,7 @@ class Post(models.Model):
     edited = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=50, choices=STATUS, default='unpublished')
     featured = models.BooleanField(default=False)
+    comments_option = models.BooleanField(default=True)
     #model managers
     objects = models.Manager()
     published = PublishedManager()
