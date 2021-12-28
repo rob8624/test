@@ -44,6 +44,7 @@ class PostListView(ListView):
 def post_detail(request, year, month, day, post):
     post = get_object_or_404(Post, slug=post, status='published', publish__year=year, publish__month=month,
                              publish__day=day)
+    # variable to be used in post detail html to check if comments_option is True or False
     check = post.comments_option
     # list of active comments for this post
     comments = post.comments.filter(active=True)
