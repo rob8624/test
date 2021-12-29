@@ -1,6 +1,9 @@
 {% extends "blog/base.html" %}
+{% load blog_tags %}
 {% block title %}My Blog{% endblock %}
 {% block content %}
+
+
 <strong><h3>My Blog</h3></strong>
 {% if tag %}
     <h2>Posts tagged with "{{ tag.name }}"</h2>
@@ -16,7 +19,7 @@
     <p>
         <small><em>Published {{ post.publish }} by {{ post.author }}</small></em>
     </p>
-    {{ post.body|truncatewords:30|linebreaks }}
+    {{ post.body|markdown|truncatewords:30 }}
     <hr style="width : 15%; border-color: #123455">
 <div>
     <p class="tags"><h7>Tags:</h7>

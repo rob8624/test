@@ -43,7 +43,7 @@ class Post(models.Model):
     slug = models.SlugField(unique_for_date='publish')
     author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='blog_posts')
     # CASCADE means when a user is deleted so are all their blog posts
-    body = models.CharField(max_length=5000, null=False, blank=False)
+    body = models.TextField()
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     edited = models.DateTimeField(auto_now_add=True)
