@@ -23,7 +23,7 @@
 {%  empty %}
     There are no similar posts
 {% endfor %}
-{% if check %}
+{% if post.comments_option %}
 <div>
 {% with comments.count as total_comments %}
     <h5>
