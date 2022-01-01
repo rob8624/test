@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from . import settings
-from django.contrib.staticfiles.urls import static
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.contrib.sitemaps.views import sitemap
+from myblog.sitemaps import PostSiteMap
+
+sitemaps = {'posts' : PostSiteMap,}
 
 admin.site.site_header = "Robs blog admin"
 admin.site.site_title = "Robs blog admin site"
@@ -25,6 +26,8 @@ admin.site.index_title = "Robs blog Admin"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('myblog/', include('myblog.urls', namespace='myblog'))
+    path('myblog/', include('myblog.urls', namespace='myblog')),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
+         name='django.contrib.sitemaps.views.sitemap')
 ]
 

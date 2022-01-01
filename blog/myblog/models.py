@@ -46,6 +46,7 @@ class Post(models.Model):
     body = models.TextField()
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     edited = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=50, choices=STATUS, default='unpublished')
     featured = models.BooleanField(default=False)
