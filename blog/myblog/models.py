@@ -6,7 +6,8 @@ from django.urls import reverse
 from taggit.managers import TaggableManager
 from exiffield.fields import ExifField
 from exiffield.getters import exifgetter
-
+from PIL import Image
+from PIL.ExifTags import TAGS
 
 #add cutoms model managers so we can use for example Post.published.all() instead of post.objects.all()
 #also added a model manager to only show posts marked High importance, which can ber used to show certain post as
@@ -90,7 +91,7 @@ class Comment(models.Model):
         return f'Comment by {self.name} on {self.post}'
 
 
-class Image(models.Model):
+class Photo(models.Model):
     image = models.ImageField(upload_to='images')
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=150, blank=True)
@@ -99,13 +100,21 @@ class Image(models.Model):
     file_size = models.CharField(editable=False, max_length=20, default='File_size')
     exif = ExifField(source='image', denormalized_fields={'lens': exifgetter('LensID'),
                                                           'caption': exifgetter('Description'),
-                                                          'file_size': exifgetter(('FileSize'))})
+                                                          'file_size': exifgetter('FileSize'),
+                                                          })
 
     def __str__(self):
         return self.title
 
 
+    def iptc(self):
+        data ={}
+        photo = Image.open(self.image)
+        info = photo.getexif()
+        for tag, value in info.items():
+            decoded = TAGS.get(tag, tag)
+            data[decoded] = value
 
-
+        return data
 
 
