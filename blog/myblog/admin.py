@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Author, Comment
+from .models import Post, Author, Comment, Image
 
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
@@ -21,6 +21,10 @@ class CommentAdmin(admin.ModelAdmin):
     list_display = ('name', 'email', 'post', 'created', 'active')
     list_filter = ('active', 'created', 'updated')
     search_fields = ('name', 'email', 'body')
+
+@admin.register(Image)
+class ImageAdmin(admin.ModelAdmin):
+    list_display = ('title', 'lens', 'caption', 'file_size', 'description',)
 
 
 
