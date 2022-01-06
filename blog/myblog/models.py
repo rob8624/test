@@ -40,7 +40,7 @@ class Post(models.Model):
     title = models.CharField(max_length=250, null=False, blank=False)
     summary = models.CharField(max_length=100, blank=True)
     slug = models.SlugField(unique_for_date='publish')
-    author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='blog_posts')
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='blog_posts', null=True)
     # CASCADE means when a user is deleted so are all their blog posts
     body = models.TextField()
     publish = models.DateTimeField(default=timezone.now)
@@ -50,6 +50,7 @@ class Post(models.Model):
     status = models.CharField(max_length=50, choices=STATUS, default='unpublished')
     featured = models.BooleanField(default=False)
     comments_option = models.BooleanField(default=True)
+
     #model managers
     objects = models.Manager()
     published = PublishedManager()
@@ -98,6 +99,8 @@ class Photo(models.Model):
     lens = models.TextField(editable=False, max_length=100, default='Lens Data')
     caption = models.CharField(editable=False, max_length=500, default='Caption info')
     file_size = models.CharField(editable=False, max_length=20, default='File_size')
+    posts = models.ManyToManyField('Post', related_name='pictures')
+    objects = models.Manager
     exif = ExifField(source='image', denormalized_fields={'lens': exifgetter('LensID'),
                                                           'caption': exifgetter('Description'),
                                                           'file_size': exifgetter('FileSize'),

@@ -1,0 +1,35 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="{% static "css/normalize.css" %}"rel="stylesheet">
+    <link href="{% static "css/skeleton.css" %}"rel="stylesheet">
+    <link href="{% static "css/gh.css" %}"rel="stylesheet">
+    <link href="{% static "css/custom.css" %}"rel="stylesheet">
+
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="four columns">
+            <h1>Gallery</h1>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="twelve columns">
+              {% for pic in photo %}
+            <h2 style="padding: 5px;">{{ pic.title }}</h2>
+            <img src=" {{ pic.image.url }}" class="u-img-responsive" style="padding: 10px;">
+            <h6>{{ pic.caption }}</h6>
+            <h4>{{ pic.lens }}</h4>
+              {% endfor %}
+        </div>
+    </div>
+</div>
+</body>
+</html>

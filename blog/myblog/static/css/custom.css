@@ -15,3 +15,9 @@ input, textarea {
     width: 15%;
     color: #000000;
 }
+
+.u-img-responsive {
+	display: block;
+	max-width: 100%;
+	width: 100%;
+	height: auto; }

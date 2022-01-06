@@ -32,7 +32,8 @@ class CommentAdmin(admin.ModelAdmin):
 
 @admin.register(Photo)
 class ImageAdmin(admin.ModelAdmin):
-    list_display = ('title', 'lens', 'caption', 'file_size', 'description',)
+    list_display = ('title', 'lens', 'caption', 'file_size', 'description')
+    exclude = ['posts']
 
 
 

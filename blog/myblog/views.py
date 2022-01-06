@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Post, Comment
+from .models import Post, Comment, Photo
 from django.views.generic import ListView
 from .forms import EmailPostForm, CommentForm, SearchForm
 from django.core.mail import send_mail
@@ -136,5 +136,9 @@ def post_search(request):
 
 
 
-
+def photo_list(request):
+    photos = Photo.objects.all()
+    return render(request, 'post/photo_list.html', {
+        'photo': photos,
+    })
 
