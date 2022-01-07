@@ -1,0 +1,25 @@
+asgiref==3.4.1
+atomicwrites==1.4.0
+attrs==21.4.0
+choicesenum==0.7.0
+colorama==0.4.4
+Django==3.2.9
+django-exiffield==3.0.0
+django-taggit==2.0.0
+django-widget-tweaks==1.4.9
+iniconfig==1.1.1
+IPTCInfo3 @ file:///C:/Users/Rob/Downloads/IPTCInfo3-2.1.4-py3-none-any.whl
+jsonfield==3.1.0
+Markdown==3.2.1
+packaging==21.3
+Pillow==8.4.0
+pluggy==1.0.0
+psycopg2==2.8.4
+py==1.11.0
+pyexiv2==2.5.0
+pyparsing==3.0.6
+pytest==6.2.5
+pytz==2021.3
+six==1.16.0
+sqlparse==0.4.2
+toml==0.10.2

@@ -22,6 +22,12 @@ class FeaturedManager(models.Manager):
         return super(FeaturedManager, self).get_queryset().filter(featured=True, status='published')
 
 
+
+
+
+
+
+
 class Author(models.Model):
     name = models.CharField(max_length=100, null=True, blank=True)
     email = models.EmailField(max_length=70,blank=True,unique=True)
@@ -29,6 +35,8 @@ class Author(models.Model):
 
     def __str__(self):
         return self.name
+
+
 
 
 class Post(models.Model):
@@ -40,7 +48,8 @@ class Post(models.Model):
     title = models.CharField(max_length=250, null=False, blank=False)
     summary = models.CharField(max_length=100, blank=True)
     slug = models.SlugField(unique_for_date='publish')
-    author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='blog_posts', null=True)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE,
+                               related_name='blog_posts', null=True)
     # CASCADE means when a user is deleted so are all their blog posts
     body = models.TextField()
     publish = models.DateTimeField(default=timezone.now)
@@ -50,7 +59,6 @@ class Post(models.Model):
     status = models.CharField(max_length=50, choices=STATUS, default='unpublished')
     featured = models.BooleanField(default=False)
     comments_option = models.BooleanField(default=True)
-
     #model managers
     objects = models.Manager()
     published = PublishedManager()
@@ -95,19 +103,26 @@ class Comment(models.Model):
 class Photo(models.Model):
     image = models.ImageField(upload_to='images')
     title = models.CharField(max_length=100)
-    description = models.CharField(max_length=150, blank=True)
+    description = models.CharField(editable=False, max_length=150, blank=True)
+    posts = models.ManyToManyField(Post, blank=True, related_name='pictures')
     lens = models.TextField(editable=False, max_length=100, default='Lens Data')
-    caption = models.CharField(editable=False, max_length=500, default='Caption info')
+    caption = models.CharField(editable=False, max_length=1000, default='Caption info')
     file_size = models.CharField(editable=False, max_length=20, default='File_size')
-    posts = models.ManyToManyField('Post', related_name='pictures')
     objects = models.Manager
     exif = ExifField(source='image', denormalized_fields={'lens': exifgetter('LensID'),
                                                           'caption': exifgetter('Description'),
                                                           'file_size': exifgetter('FileSize'),
+                                                          'description': exifgetter('Headline')
                                                           })
 
     def __str__(self):
         return self.title
+
+    @mark_safe
+    def admin_thumbnail(self):
+        return u'<img src="%s" height="65px" />' % (self.image.url)
+    admin_thumbnail.short_description = 'Thumbnail'
+    admin_thumbnail.allow_tags = True
 
 
     def iptc(self):
@@ -119,5 +134,7 @@ class Photo(models.Model):
             data[decoded] = value
 
         return data
+
+
 
 
