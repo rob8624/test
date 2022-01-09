@@ -75,9 +75,9 @@ def post_detail(request, year, month, day, post):
     return render(request, 'post/detail.html',
                   {'post': post,
                    'posts' : posts,
-                   'new_comment' : new_comment,
-                   'comment_form' : comment_form,
-                   'similar_posts' : similar_posts,
+                   'new_comment': new_comment,
+                   'comment_form': comment_form,
+                   'similar_posts': similar_posts,
                    })
 
 

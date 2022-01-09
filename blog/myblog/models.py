@@ -25,7 +25,7 @@ class FeaturedManager(models.Manager):
 
 
 
-
+# TODO possibly add category model
 
 
 class Author(models.Model):
@@ -74,6 +74,9 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def show_pictures(self, obj):
+        return obj.pictures.all()
 
     # method to return the canonical URL for the model
     def get_absolute_url(self):

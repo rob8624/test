@@ -1,70 +1,25 @@
 {% load blog_tags %}
 {% load static %}
 {% load widget_tweaks %}
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>{% block title %}{% endblock %}</title>
-        <meta name="description" content="Magic the Gathering Community Hub">
-        <meta name="author" content="Goblin Hammer">
-
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <link href="//fonts.googleapis.com/css?family=Roboto:400,300,600" rel="stylesheet" type="text/css">
-
-        <link href="{% static "css/normalize.css" %}"rel="stylesheet">
-        <link href="{% static "css/skeleton.css" %}"rel="stylesheet">
-        <link href="{% static "css/gh.css" %}"rel="stylesheet">
-        <link href="{% static "css/custom.css" %}"rel="stylesheet">
-
-        <link rel="icon" type="image/png" href="images/favicon.png">
-    </head>
-
-    <body>
-        <nav class="nav-show">
-            <div class="container">
-                <ul>
-                    <li><a href="{% url 'myblog:post_list' %}">Home</a></li>
-                    <li>
-                        <a href="#decks">Images</a>
-                        <ul>
-                            <li><a href="#">Galleries</a></li>
-                            <li><a href="#">License/Purchase</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#combos">Contact</a></li>
-                    <li>
-                        <a href="#manage">Manage</a>
-                        <ul>
-                            <li><a href="#">My Decks</a></li>
-                            <li><a href="#">My Combos</a></li>
-                            <li><a href="#">My Collection</a></li>
-                            <li><a href="#">My Shop</a></li>
-                        </ul>
-                    </li>
-                    <li class="u-pull-right" style="padding: 1%;"><a class="button button-primary" href="#login">Login</a></li>
-                    <li class="right" style="padding: 1%;" ><a class="button button-primary" href="#register">Register</a></li>
-                    <li class="icon">
-                        <a href="javascript:void(0);" onclick="toggleMobileNav();">&#9776;</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+{% include "blog/scripts.html" %}
+<body style="background-color: #F0F0F0; text-align:center" xmlns="">
+        {% include "blog/nav_bar.html" %}
         <div class="container">
             <div class="row">
-                <div class="eleven columns"><p style="top: 30px; position: relative;">{% now "jS F Y" %}</p></div>
+                <div class="twelve columns"><p style="top: 25px; position: relative;">{% now "jS F Y" %}</p></div>
             </div>
         </div>
-        <div class="container">
+        {% block header %}
+        <div class="container" style="background-color: #E8E8E8">
             <div class="row">
                 <div class="twelve columns" style="text-align: center; clear: right; margin-top: -50px;">
                     <hr class="solid">
 
-                    <h3 style="letter-spacing: 1px;">A blog by photographer, <strong>Robert Melen</strong></h3>
+                    <h3 style="letter-spacing: 1px; position:relative; top:10px; ">
+                        <i>Blog</i> by photographer, <strong>Robert Melen</strong></h3>
                     <h6>Welcome to my Blog. There are {% total_posts %} published articles</h6>
                     <h6>Subscribe</h6>
-                    <img src="{{ static_url }}RM_301221_Rain_Wales_001.JPG" style="height: 200px;">
+                    <img src="/media/images/RM_311021_Rainbow_Pony_002.JPG" style="height: 200px;">
                     {% if image.description %}
                     sdfsdf
                     {% endif %}
@@ -72,7 +27,10 @@
                 </div>
             </div>
         </div>
+        {% endblock %}
+        {% block featured %}
         {% include "blog/blogpage.html" %}
+        {% endblock %}
         <div class="container">
             <div class="row">
                 <div class="twelve columns" style="padding:50px; text-align: center; ">
@@ -81,6 +39,5 @@
                 </div>
             </div>
         </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="/static/js/gh.js"></script>
-</html>
+{% include "blog/js.html" %}
+        </html>

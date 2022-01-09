@@ -2,19 +2,16 @@
 {% load blog_tags %}
 {% block title %}My Blog{% endblock %}
 {% block content %}
-
-
 <strong><h3>My Blog</h3></strong>
 {% if tag %}
     <h2>Posts tagged with "{{ tag.name }}"</h2>
 {% endif %}
 {% for post in posts %}
-    <h4>
+    <h5>
         <a href="{{ post.get_absolute_url }}">
             {{ post.title }}
-
         </a>
-    </h4>
+    </h5>
 
     <p>
         <small><em>Published {{ post.publish }} by {{ post.author }}</small></em>
