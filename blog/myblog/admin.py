@@ -30,7 +30,8 @@ class CommentAdmin(admin.ModelAdmin):
 
 @admin.register(Photo)
 class ImageAdmin(admin.ModelAdmin):
-    list_display = ('title', 'iptc_data', 'feature_image', 'admin_thumbnail', 'lens', 'caption', 'file_size', 'description')
+    list_display = ('title', 'info', 'feature_image', 'admin_thumbnail', 'lens', 'caption', 'file_size', 'description')
+    list_editable = ('info',)
 
     #exclude = ['posts']
 

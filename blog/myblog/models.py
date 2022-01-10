@@ -114,6 +114,7 @@ class Photo(models.Model):
     caption = models.CharField(editable=False, max_length=1000, default='Caption info')
     file_size = models.CharField(editable=False, max_length=20, default='File_size')
     objects = models.Manager
+    info = models.TextField(default='**info empty**')
     exif = ExifField(source='image', denormalized_fields={'lens': exifgetter('LensID'),
                                                           'caption': exifgetter('Description'),
                                                           'file_size': exifgetter('FileSize'),
@@ -131,21 +132,26 @@ class Photo(models.Model):
     admin_thumbnail.allow_tags = True
 
 
-    def iptc_data(self):
-        data ={}
-        image = self.image.path
-        photo = Image.open(image)
-        info = photo.getexif()
+    def save(self, *args, **kwargs):
+        super(Photo, self).save(*args, **kwargs)
+        im = Image.open(self.image.path)
+        info = im.getexif()
+
         for tag, value in info.items():
             decoded = TAGS.get(tag, tag)
-            data[decoded] = value
+            info[decoded] = value
+            self.info=info
 
-        return data
+
+        im.save(self.image.path)
+
+        super(Photo, self).save(*args, **kwargs)
+
+
 
 
 class IPTC(models.Model):
     picture = models.OneToOneField(Photo, on_delete=models.CASCADE)
-
 
 
     class Meta:
