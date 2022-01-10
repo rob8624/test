@@ -104,6 +104,18 @@ class Comment(models.Model):
         return f'Comment by {self.name} on {self.post}'
 
 
+class Catagory(models.Model):
+    name = models.CharField(max_length=200, null=True)
+    slug = models.SlugField(null=True)
+    description = models.CharField(max_length=500, null=True, blank=True, verbose_name='Description')
+
+    class Meta:
+        verbose_name_plural = 'Catagory'
+
+    def __str__(self):
+        return str(self.name)
+
+
 class Photo(models.Model):
     image = models.ImageField(upload_to='images')
     title = models.CharField(max_length=100)
@@ -113,8 +125,9 @@ class Photo(models.Model):
     lens = models.TextField(editable=False, max_length=100, default='Lens Data')
     caption = models.CharField(editable=False, max_length=1000, default='Caption info')
     file_size = models.CharField(editable=False, max_length=20, default='File_size')
+    categories = models.ForeignKey(Catagory, on_delete=models.SET_NULL, null=True, blank=True)
     objects = models.Manager
-    info = models.TextField(default='**info empty**')
+    info = models.TextField(default='**info empty**', help_text="editable caption info no reversable")
     exif = ExifField(source='image', denormalized_fields={'lens': exifgetter('LensID'),
                                                           'caption': exifgetter('Description'),
                                                           'file_size': exifgetter('FileSize'),
@@ -151,7 +164,15 @@ class Photo(models.Model):
 
 
 class IPTC(models.Model):
-    picture = models.OneToOneField(Photo, on_delete=models.CASCADE)
+    photo = models.ForeignKey(Photo, on_delete=models.CASCADE)
+    data = models.CharField(max_length=500, default='caption')
+
+    # def caption(self):
+    #     images = Photo.objects.all()
+    #
+    #     return images.info
+
+
 
 
     class Meta:
@@ -160,6 +181,10 @@ class IPTC(models.Model):
 
     def __str__(self):
         return self.picture.title
+
+
+
+
 
 
 
