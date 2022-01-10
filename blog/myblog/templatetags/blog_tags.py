@@ -1,5 +1,5 @@
 from django import template
-from ..models import Post
+from ..models import Post, Photo
 from django.utils.safestring import mark_safe
 import markdown
 
@@ -23,3 +23,8 @@ def show_latest_posts(count=3):
 def featured_posts(count=5):
     featured_posts = Post.feature.all()[:count]
     return {'featured_posts' : featured_posts }
+
+@register.inclusion_tag('post/feature_image.html')
+def featured_images():
+    feature_images = Photo.objects.filter(feature_image=True)
+    return {'feature_images' : featured_images }

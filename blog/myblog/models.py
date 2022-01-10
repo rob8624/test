@@ -59,6 +59,7 @@ class Post(models.Model):
     status = models.CharField(max_length=50, choices=STATUS, default='unpublished')
     featured = models.BooleanField(default=False)
     comments_option = models.BooleanField(default=True)
+
     #model managers
     objects = models.Manager()
     published = PublishedManager()
@@ -106,6 +107,7 @@ class Comment(models.Model):
 class Photo(models.Model):
     image = models.ImageField(upload_to='images')
     title = models.CharField(max_length=100)
+    feature_image = models.BooleanField(default=False)
     description = models.CharField(editable=False, max_length=150, blank=True)
     posts = models.ManyToManyField(Post, blank=True, related_name='pictures')
     lens = models.TextField(editable=False, max_length=100, default='Lens Data')
@@ -116,6 +118,7 @@ class Photo(models.Model):
                                                           'caption': exifgetter('Description'),
                                                           'file_size': exifgetter('FileSize'),
                                                           'description': exifgetter('Headline')
+
                                                           })
 
     def __str__(self):
@@ -128,9 +131,10 @@ class Photo(models.Model):
     admin_thumbnail.allow_tags = True
 
 
-    def iptc(self):
+    def iptc_data(self):
         data ={}
-        photo = Image.open(self.image)
+        image = self.image.path
+        photo = Image.open(image)
         info = photo.getexif()
         for tag, value in info.items():
             decoded = TAGS.get(tag, tag)
@@ -138,6 +142,18 @@ class Photo(models.Model):
 
         return data
 
+
+class IPTC(models.Model):
+    picture = models.OneToOneField(Photo, on_delete=models.CASCADE)
+
+
+
+    class Meta:
+        verbose_name_plural = "IPTC"
+
+
+    def __str__(self):
+        return self.picture.title
 
 
 

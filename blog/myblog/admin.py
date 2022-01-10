@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Author, Comment, Photo
+from .models import Post, Author, Comment, Photo, IPTC
 
 
 # TODO Try to add an in-line representation on Photo model in Admin/Post so I can upload pics directly to posts
@@ -30,9 +30,14 @@ class CommentAdmin(admin.ModelAdmin):
 
 @admin.register(Photo)
 class ImageAdmin(admin.ModelAdmin):
-    list_display = ('title', 'admin_thumbnail', 'lens', 'caption', 'file_size', 'description')
+    list_display = ('title', 'iptc_data', 'feature_image', 'admin_thumbnail', 'lens', 'caption', 'file_size', 'description')
+
     #exclude = ['posts']
 
 
-
+@admin.register(IPTC)
+class IptcAdmin(admin.ModelAdmin):
+    def save_model(self, request, obj, form, change):
+        test = IPTC.picture.get(all)
+        return test
 

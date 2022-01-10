@@ -18,11 +18,10 @@
                     <h3 style="letter-spacing: 1px; position:relative; top:10px; ">
                         <i>Blog</i> by photographer, <strong>Robert Melen</strong></h3>
                     <h6>Welcome to my Blog. There are {% total_posts %} published articles</h6>
+                     {% for images in image_featured %}
+                        <img src="{{ MEDIA_URL }}{{ images.image.url }}" style="max-height: 200px;"/>
+                    {% endfor %}
                     <h6>Subscribe</h6>
-                    <img src="/media/images/RM_311021_Rainbow_Pony_002.JPG" style="height: 200px;">
-                    {% if image.description %}
-                    sdfsdf
-                    {% endif %}
                     <hr class="solid">
                 </div>
             </div>
