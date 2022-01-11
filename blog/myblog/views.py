@@ -143,8 +143,3 @@ def photo_list(request):
     })
 
 
-
-def feature_image(request):
-    image = Photo.objects.filter(feature_image=True)
-    return render(request, 'post/feature_image.html',
-                  {'image': image,})

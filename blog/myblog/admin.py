@@ -6,7 +6,7 @@ from .models import Post, Author, Comment, Photo, IPTC, Catagory
 
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email')
+    list_display = ('name', 'email','author_thumbnail',)
 
 # TODO check get_photo method.....it is designed to add thumbnails of photo related to a Post but need coding
 @admin.register(Post)

@@ -7,6 +7,7 @@ from taggit.managers import TaggableManager
 from exiffield.fields import ExifField
 from exiffield.getters import exifgetter
 from PIL import Image
+from django_resized import ResizedImageField
 from PIL.ExifTags import TAGS
 
 #add cutoms model managers so we can use for example Post.published.all() instead of post.objects.all()
@@ -32,11 +33,17 @@ class Author(models.Model):
     name = models.CharField(max_length=100, null=True, blank=True)
     email = models.EmailField(max_length=70,blank=True,unique=True)
     bio = models.TextField(max_length=200, null=True, blank=True)
+    photo = ResizedImageField(size=[500, 400], upload_to='authors', default='author pic')
 
     def __str__(self):
         return self.name
 
+    @mark_safe
+    def author_thumbnail(self):
+        return u'<img src="%s" height="65px" />' % (self.photo.url)
 
+    author_thumbnail.short_description = 'Thumbnail'
+    author_thumbnail.allow_tags = True
 
 
 class Post(models.Model):
@@ -148,12 +155,16 @@ class Photo(models.Model):
     def save(self, *args, **kwargs):
         super(Photo, self).save(*args, **kwargs)
         im = Image.open(self.image.path)
-        info = im.getexif()
+        try:
+            info = im.getexif()[0x010e]
+            self.info = info
+        except KeyError:
+            pass
 
-        for tag, value in info.items():
-            decoded = TAGS.get(tag, tag)
-            info[decoded] = value
-            self.info=info
+            # for tag, value in info.items():
+        #     decoded = TAGS.get(tag, tag)
+        #     info[decoded] = value
+
 
 
         im.save(self.image.path)
