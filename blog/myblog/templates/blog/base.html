@@ -10,9 +10,10 @@
             </div>
         </div>
         {% block header %}
-        <div class="container" style="background-color: #E8E8E8">
+        <div class="container" style="background-color: #E8E8E8;" >
             <div class="row">
-                <div class="twelve columns" style="text-align: center; clear: right; margin-top: -50px;">
+                <div class="twelve columns" style="text-align: center; clear: right;
+                 margin-top: -50px;">
                     <hr class="solid">
 
                     <h3 style="letter-spacing: 1px; position:relative; top:10px; ">
@@ -27,9 +28,16 @@
             </div>
         </div>
         {% endblock %}
-        {% block featured %}
-        {% include "blog/blogpage.html" %}
-        {% endblock %}
+        {% block sticky %}
+        <div id="sticky" style=" position: sticky;
+        top: 0; z-index: 5;
+        box-shadow: 5px 5px 5px grey; height: 80px;">
+            {% block featured %}
+            {% include "blog/blogpage.html" %}
+            {% endblock %}
+        </div>
+        {%  endblock %}
+
         <div class="container">
             <div class="row">
                 <div class="twelve columns" style="padding:50px; text-align: center; ">

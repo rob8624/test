@@ -5,12 +5,14 @@
 {% block title %}{{ post.title }}{% endblock %}
 {% block header %}{% endblock %}
 {% block featured %}{% endblock %}
+{% block sticky %}{% endblock %}
 {% block content %}
 <div class="container"></div>
-    <h1>{{ post.title }}</h1>
+    <div><h1>{{ post.title }}</h1></div>
     <p class="date">
-        <small>Published {{ post.publish }} by {{ post.author }}
-            <img src="{{ media_url }}{{post.author.photo.url }}" style="max-height: 20px; border-radius: 50%;"/></small>
+<div style="position: absolute; margin-top: -20px; "><small>Writen by {{ post.author }}</small>
+            <img src="{{ media_url }}{{post.author.photo.url }}"
+                 style="max-height: 20px; border-radius: 50%;"/>/published on {{ post.publish }} </small></div>
     </p>
 </div>
     {{ post.body|markdown }}
