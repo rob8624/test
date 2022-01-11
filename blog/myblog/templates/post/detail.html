@@ -1,14 +1,18 @@
 {% extends "blog/base.html" %}
 {% load blog_tags %}
+{% load static %}
 {% load widget_tweaks %}
 {% block title %}{{ post.title }}{% endblock %}
 {% block header %}{% endblock %}
 {% block featured %}{% endblock %}
 {% block content %}
+<div class="container"></div>
     <h1>{{ post.title }}</h1>
     <p class="date">
-        <small>Published {{ post.publish }} by {{ post.author }}</small>
+        <small>Published {{ post.publish }} by {{ post.author }}
+            <img src="{{ media_url }}{{post.author.photo.url }}" style="max-height: 20px; border-radius: 50%;"/></small>
     </p>
+</div>
     {{ post.body|markdown }}
 <div style="margin-bottom: 4rem;">
 <p>
