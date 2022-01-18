@@ -57,7 +57,6 @@ class Post(models.Model):
     slug = models.SlugField(unique_for_date='publish')
     author = models.ForeignKey(Author, on_delete=models.CASCADE,
                                related_name='blog_posts', null=True)
-    # CASCADE means when a user is deleted so are all their blog posts
     body = models.TextField()
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
@@ -66,15 +65,11 @@ class Post(models.Model):
     status = models.CharField(max_length=50, choices=STATUS, default='unpublished')
     featured = models.BooleanField(default=False)
     comments_option = models.BooleanField(default=True)
-
-    #model managers
     objects = models.Manager()
     published = PublishedManager()
     feature = FeaturedManager()
     tags = TaggableManager(verbose_name="Add Tags", help_text="Use comma to separate")
-    #Model metadata is “anything that’s not a field”, such as ordering options (ordering), database table name (db_table),
-    # or human-readable singular and plural names (verbose_name and verbose_name_plural).
-    # None are required, and adding class Meta to a model is completely optional.
+
 
     class Meta:
         ordering = ('-publish',)
@@ -83,15 +78,15 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-    def show_pictures(self, obj):
-        return obj.pictures.all()
 
-    # method to return the canonical URL for the model
+
     def get_absolute_url(self):
         return reverse('myblog:post_detail', args=[self.publish.year,
                                                    self.publish.month,
                                                    self.publish.day,
                                                    self.slug])
+
+
 
 
 class Comment(models.Model):
@@ -123,6 +118,7 @@ class Catagory(models.Model):
         return str(self.name)
 
 
+
 class Photo(models.Model):
     image = models.ImageField(upload_to='images')
     title = models.CharField(max_length=100)
@@ -145,11 +141,6 @@ class Photo(models.Model):
     def __str__(self):
         return self.title
 
-    @mark_safe
-    def admin_thumbnail(self):
-        return u'<img src="%s" height="65px" />' % (self.image.url)
-    admin_thumbnail.short_description = 'Thumbnail'
-    admin_thumbnail.allow_tags = True
 
 
     def save(self, *args, **kwargs):
@@ -160,38 +151,13 @@ class Photo(models.Model):
             self.info = info
         except KeyError:
             pass
-
-            # for tag, value in info.items():
-        #     decoded = TAGS.get(tag, tag)
-        #     info[decoded] = value
-
-
-
         im.save(self.image.path)
-
         super(Photo, self).save(*args, **kwargs)
 
 
 
 
-class IPTC(models.Model):
-    photo = models.ForeignKey(Photo, on_delete=models.CASCADE)
-    data = models.CharField(max_length=500, default='caption')
 
-    # def caption(self):
-    #     images = Photo.objects.all()
-    #
-    #     return images.info
-
-
-
-
-    class Meta:
-        verbose_name_plural = "IPTC"
-
-
-    def __str__(self):
-        return self.picture.title
 
 
 

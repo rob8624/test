@@ -21,7 +21,7 @@
 <div>
     <p class="tags"><h7>Tags:</h7>
                 {% for tag in post.tags.all %}
-                <a href="{% url "myblog:post_list_by_tag" tag.slug %}">
+                <a href="{% url "myblog:post_list_by_tag" tag.slug %}"
                 {{tag.name}}
                 </a>
                 {% if not forloop.last %}, {% endif %}

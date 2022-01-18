@@ -21,3 +21,10 @@ input, textarea {
 	max-width: 100%;
 	width: 100%;
 	height: auto; }
+
+
+a:link {
+  color: green;
+  background-color: transparent;
+  text-decoration: none;
+}

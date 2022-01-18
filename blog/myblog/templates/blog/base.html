@@ -2,6 +2,9 @@
 {% load static %}
 {% load widget_tweaks %}
 {% include "blog/scripts.html" %}
+ <style>
+    a { color: black; } /* CSS link color */
+  </style>
 <body style="background-color: #F0F0F0; text-align:center" xmlns="">
         {% include "blog/nav_bar.html" %}
         <div class="container">
@@ -40,7 +43,9 @@
 
         <div class="container">
             <div class="row">
-                <div class="twelve columns" style="padding:50px; text-align: center; ">
+                <div class="twelve columns" style="padding:50px; text-align: center;
+                border-style: solid;
+                border-color: #DCDCDC; border-radius: 25px;">
                     {% block content %}
                     {% endblock %}
                 </div>
