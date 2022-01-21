@@ -1,7 +1,13 @@
 from django.contrib import admin
-from .models import Post, Author, Comment, Photo, Catagory
-from django.utils.safestring import mark_safe
+from .models import Post, Author, Comment, Photo, Catagory, Gallery
 from django import forms
+from django.utils.safestring import mark_safe
+
+
+
+
+
+
 
 
 @admin.register(Author)
@@ -11,7 +17,7 @@ class AuthorAdmin(admin.ModelAdmin):
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'author', 'slug', 'publish', 'status', 'featured', 'comments_option', 'show_pictures')
+    list_display = ('title', 'author', 'slug', 'publish', 'status', 'featured', 'comments_option', 'show_pictures',)
     list_filter = ('author', 'publish', 'featured', 'status')
     search_fields = ('title', 'summary', 'author')
     prepopulated_fields = {'slug': ('title',)}
@@ -51,11 +57,11 @@ class ImageAdmin(admin.ModelAdmin):
     search_fields = ('title', 'caption', 'description')
     form = PostForm
 
-
     # This provides access to FK Category model
     @admin.display(description='Category', ordering='categories__name')
     def get_category(self, obj):
         return obj.categories
+
 
     @mark_safe
     def admin_thumbnail(self, obj):
@@ -70,6 +76,19 @@ class ImageAdmin(admin.ModelAdmin):
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name',)
     prepopulated_fields = {'slug': ('name',)}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

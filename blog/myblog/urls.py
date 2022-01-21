@@ -15,4 +15,5 @@ urlpatterns = [
     path('search/', views.post_search, name='post_search'),
     path('pictures/', views.photo_list, name='photo_list'),
 
+
     ]

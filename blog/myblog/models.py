@@ -10,9 +10,9 @@ from PIL import Image
 from django_resized import ResizedImageField
 from PIL.ExifTags import TAGS
 
-#add cutoms model managers so we can use for example Post.published.all() instead of post.objects.all()
-#also added a model manager to only show posts marked High importance, which can ber used to show certain post as
-#featured
+# TODO add save to action menu in admin
+# TODO put managers in seperate manager file
+
 
 class PublishedManager(models.Manager):
     def get_queryset(self):
@@ -23,10 +23,6 @@ class FeaturedManager(models.Manager):
         return super(FeaturedManager, self).get_queryset().filter(featured=True, status='published')
 
 
-
-
-
-# TODO possibly add category model
 
 
 class Author(models.Model):
@@ -46,6 +42,8 @@ class Author(models.Model):
     author_thumbnail.allow_tags = True
 
 
+
+
 class Post(models.Model):
     STATUS = (
         ('published', 'Published'),
@@ -57,6 +55,7 @@ class Post(models.Model):
     slug = models.SlugField(unique_for_date='publish')
     author = models.ForeignKey(Author, on_delete=models.CASCADE,
                                related_name='blog_posts', null=True)
+
     body = models.TextField()
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
@@ -89,6 +88,10 @@ class Post(models.Model):
 
 
 
+
+
+
+
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
     name = models.CharField(max_length=80)
@@ -117,6 +120,16 @@ class Catagory(models.Model):
     def __str__(self):
         return str(self.name)
 
+class Gallery(models.Model):
+    title = models.CharField(max_length=100, default='title')
+
+
+
+    def __str__(self):
+        return self.title
+
+
+
 
 
 class Photo(models.Model):
@@ -125,12 +138,13 @@ class Photo(models.Model):
     feature_image = models.BooleanField(default=False)
     description = models.CharField(editable=False, max_length=150, blank=True)
     posts = models.ManyToManyField(Post, blank=True, related_name='pictures')
+    add_to_gallery = models.ManyToManyField(Gallery, blank=True, related_name='gallery_image')
     lens = models.TextField(editable=False, max_length=100, default='Lens Data')
     caption = models.CharField(editable=False, max_length=1000, default='Caption info')
     file_size = models.CharField(editable=False, max_length=20, default='File_size')
     categories = models.ForeignKey(Catagory, on_delete=models.SET_NULL, null=True, blank=True)
     objects = models.Manager
-    info = models.TextField(default='**info empty**', help_text="editable caption info no reversable")
+    info = models.TextField(default='**info empty**', blank=True, help_text="editable caption info no reversable")
     exif = ExifField(source='image', denormalized_fields={'lens': exifgetter('LensID'),
                                                           'caption': exifgetter('Description'),
                                                           'file_size': exifgetter('FileSize'),
@@ -153,6 +167,8 @@ class Photo(models.Model):
             pass
         im.save(self.image.path)
         super(Photo, self).save(*args, **kwargs)
+
+
 
 
 
