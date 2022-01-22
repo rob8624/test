@@ -169,8 +169,8 @@ class Photo(models.Model):
         im.save(self.image.path)
         super(Photo, self).save(*args, **kwargs)
 
-    def __unicode__(self):
-        return self.image.name
+    def __str__(self):
+        return self.title
 
     def albums_(self):
         lst = [x[1] for x in self.albums.values_list()]

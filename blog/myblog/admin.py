@@ -9,20 +9,21 @@ class PhotoForm(forms.ModelForm):
 
     class Meta:
         model = Photo
+        readonly_fields = ('caption',)
         exclude = ['info', 'size',]
-        filter_horizontal = ['Posts']
         fields = '__all__'
-
-
 
 @admin.register(Photo)
 class ImageAdmin(admin.ModelAdmin):
-    list_display  = ('title', 'info', 'thumbnail', 'feature_image', 'size', 'caption', 'file_size', 'description',
+    list_display  = ('title', 'info', 'thumbnail', 'feature_image', 'size', 'file_size', 'description',
                      'get_category', "albums_",)
+    readonly_fields = ('caption',)
     list_editable = ('info',)
     search_fields = ('title', 'caption', 'description')
     list_filter = ["albums",]
     form = PhotoForm
+
+
 
     # This provides access to FK Category model
     @admin.display(description='Category', ordering='categories__name')
