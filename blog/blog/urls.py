@@ -31,6 +31,7 @@ urlpatterns = [
     path('myblog/', include('myblog.urls', namespace='myblog')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
          name='django.contrib.sitemaps.views.sitemap')
+
 ]
 
 if settings.DEBUG:

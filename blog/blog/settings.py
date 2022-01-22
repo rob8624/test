@@ -44,7 +44,10 @@ INSTALLED_APPS = [
     'taggit',
     'django.contrib.sites',
     'django.contrib.sitemaps',
-    'django.contrib.postgres'
+    'django.contrib.postgres',
+
+
+
 
 
 ]
@@ -73,6 +76,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'myblog.context_processors.image_featured',
+
             ],
         },
     },

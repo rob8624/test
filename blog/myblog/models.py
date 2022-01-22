@@ -8,7 +8,9 @@ from exiffield.fields import ExifField
 from exiffield.getters import exifgetter
 from PIL import Image
 from django_resized import ResizedImageField
-from PIL.ExifTags import TAGS
+
+
+
 
 # TODO add save to action menu in admin
 # TODO put managers in seperate manager file
@@ -21,8 +23,6 @@ class PublishedManager(models.Manager):
 class FeaturedManager(models.Manager):
     def get_queryset(self):
         return super(FeaturedManager, self).get_queryset().filter(featured=True, status='published')
-
-
 
 
 class Author(models.Model):
@@ -40,7 +40,6 @@ class Author(models.Model):
 
     author_thumbnail.short_description = 'Thumbnail'
     author_thumbnail.allow_tags = True
-
 
 
 
@@ -87,11 +86,6 @@ class Post(models.Model):
 
 
 
-
-
-
-
-
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
     name = models.CharField(max_length=80)
@@ -120,28 +114,37 @@ class Catagory(models.Model):
     def __str__(self):
         return str(self.name)
 
-class Gallery(models.Model):
-    title = models.CharField(max_length=100, default='title')
 
+class Album(models.Model):
+    title = models.CharField(max_length=60)
+    public = models.BooleanField(default=False)
 
 
     def __str__(self):
         return self.title
 
+    def images(self):
+        lst = [x.image.name for x in self.photo_set.all()]
+        lst = ["<a href='/media/%s'>%s</a>" % (x, x.split('/')[-1]) for x in lst]
+        return ",".join(lst)
 
+    images.allow_tags = True
 
 
 
 class Photo(models.Model):
     image = models.ImageField(upload_to='images')
     title = models.CharField(max_length=100)
+    albums = models.ManyToManyField(Album, blank=True)
     feature_image = models.BooleanField(default=False)
     description = models.CharField(editable=False, max_length=150, blank=True)
     posts = models.ManyToManyField(Post, blank=True, related_name='pictures')
-    add_to_gallery = models.ManyToManyField(Gallery, blank=True, related_name='gallery_image')
+
     lens = models.TextField(editable=False, max_length=100, default='Lens Data')
     caption = models.CharField(editable=False, max_length=1000, default='Caption info')
     file_size = models.CharField(editable=False, max_length=20, default='File_size')
+    width = models.IntegerField(blank=True, null=True)
+    height = models.IntegerField(blank=True, null=True)
     categories = models.ForeignKey(Catagory, on_delete=models.SET_NULL, null=True, blank=True)
     objects = models.Manager
     info = models.TextField(default='**info empty**', blank=True, help_text="editable caption info no reversable")
@@ -152,14 +155,11 @@ class Photo(models.Model):
 
                                                           })
 
-    def __str__(self):
-        return self.title
-
-
 
     def save(self, *args, **kwargs):
         super(Photo, self).save(*args, **kwargs)
         im = Image.open(self.image.path)
+        self.width, self.height = im.size
         try:
             info = im.getexif()[0x010e]
             self.info = info
@@ -167,6 +167,25 @@ class Photo(models.Model):
             pass
         im.save(self.image.path)
         super(Photo, self).save(*args, **kwargs)
+
+    def __unicode__(self):
+        return self.image.name
+
+    def albums_(self):
+        lst = [x[1] for x in self.albums.values_list()]
+        return ",".join(lst)
+
+    def size(self):
+        """Image size."""
+        return "%s x %s" % (self.width, self.height)
+
+    @mark_safe
+    def thumbnail(self):
+        return """<a href="/media/%s"><img border="0" alt="" src="/media/%s" height="40" /></a>""" % (
+            (self.image.name, self.image.name))
+
+    thumbnail.allow_tags = True
+
 
 
 

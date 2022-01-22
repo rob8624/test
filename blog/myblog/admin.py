@@ -1,11 +1,49 @@
 from django.contrib import admin
-from .models import Post, Author, Comment, Photo, Catagory, Gallery
+from .models import Post, Author, Comment, Photo, Catagory, Album
 from django import forms
 from django.utils.safestring import mark_safe
 
 
 
+class PhotoForm(forms.ModelForm):
+    class Meta:
+        model = Photo
+        exclude = ['info', 'size',]
+        filter_horizontal = ['Posts']
+        fields = '__all__'
 
+
+
+@admin.register(Photo)
+class ImageAdmin(admin.ModelAdmin):
+    list_display  = ('title', 'info', 'thumbnail', 'feature_image', 'size', 'admin_thumbnail', 'caption', 'file_size', 'description', 'get_category',
+                     "albums_",)
+    list_editable = ('info',)
+    search_fields = ('title', 'caption', 'description')
+    list_filter = ["albums",]
+    form = PhotoForm
+
+    # This provides access to FK Category model
+    @admin.display(description='Category', ordering='categories__name')
+    def get_category(self, obj):
+        return obj.categories
+
+
+
+    @mark_safe
+    def admin_thumbnail(self, obj):
+        return u'<img src="%s" height="100px" />' % (obj.image.url)
+
+    admin_thumbnail.short_description = 'Thumbnail'
+    admin_thumbnail.allow_tags = True
+
+
+
+
+@admin.register(Album)
+class AlbumAdmin(admin.ModelAdmin):
+    search_fields = ["title"]
+    list_display = ["title", 'images']
 
 
 
@@ -35,7 +73,6 @@ class PostAdmin(admin.ModelAdmin):
     show_pictures.allow_tags = True
 
 
-
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('name', 'email', 'post', 'created', 'active')
@@ -50,25 +87,6 @@ class PostForm(forms.ModelForm):
         filter_horizontal = ['Posts']
         fields = '__all__'
 
-@admin.register(Photo)
-class ImageAdmin(admin.ModelAdmin):
-    list_display  = ('title', 'info', 'feature_image', 'admin_thumbnail', 'lens', 'caption', 'file_size', 'description', 'get_category',)
-    list_editable = ('info',)
-    search_fields = ('title', 'caption', 'description')
-    form = PostForm
-
-    # This provides access to FK Category model
-    @admin.display(description='Category', ordering='categories__name')
-    def get_category(self, obj):
-        return obj.categories
-
-
-    @mark_safe
-    def admin_thumbnail(self, obj):
-        return u'<img src="%s" height="100px" />' % (obj.image.url)
-
-    admin_thumbnail.short_description = 'Thumbnail'
-    admin_thumbnail.allow_tags = True
 
 
 
@@ -76,6 +94,19 @@ class ImageAdmin(admin.ModelAdmin):
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name',)
     prepopulated_fields = {'slug': ('name',)}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
