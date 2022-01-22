@@ -6,6 +6,7 @@ from django.utils.safestring import mark_safe
 
 
 class PhotoForm(forms.ModelForm):
+
     class Meta:
         model = Photo
         exclude = ['info', 'size',]
@@ -16,8 +17,8 @@ class PhotoForm(forms.ModelForm):
 
 @admin.register(Photo)
 class ImageAdmin(admin.ModelAdmin):
-    list_display  = ('title', 'info', 'thumbnail', 'feature_image', 'size', 'admin_thumbnail', 'caption', 'file_size', 'description', 'get_category',
-                     "albums_",)
+    list_display  = ('title', 'info', 'thumbnail', 'feature_image', 'size', 'caption', 'file_size', 'description',
+                     'get_category', "albums_",)
     list_editable = ('info',)
     search_fields = ('title', 'caption', 'description')
     list_filter = ["albums",]
@@ -27,16 +28,6 @@ class ImageAdmin(admin.ModelAdmin):
     @admin.display(description='Category', ordering='categories__name')
     def get_category(self, obj):
         return obj.categories
-
-
-
-    @mark_safe
-    def admin_thumbnail(self, obj):
-        return u'<img src="%s" height="100px" />' % (obj.image.url)
-
-    admin_thumbnail.short_description = 'Thumbnail'
-    admin_thumbnail.allow_tags = True
-
 
 
 

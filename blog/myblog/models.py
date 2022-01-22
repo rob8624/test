@@ -123,6 +123,7 @@ class Album(models.Model):
     def __str__(self):
         return self.title
 
+    @mark_safe
     def images(self):
         lst = [x.image.name for x in self.photo_set.all()]
         lst = ["<a href='/media/%s'>%s</a>" % (x, x.split('/')[-1]) for x in lst]
