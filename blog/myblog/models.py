@@ -8,6 +8,10 @@ from exiffield.fields import ExifField
 from exiffield.getters import exifgetter
 from PIL import Image
 from django_resized import ResizedImageField
+from blog.settings import MEDIA_ROOT
+from os.path import join as pjoin
+
+
 
 
 
@@ -144,8 +148,8 @@ class Photo(models.Model):
     lens = models.TextField(editable=False, max_length=100, default='Lens Data')
     caption = models.CharField(editable=False, max_length=1000, default='Caption info')
     file_size = models.CharField(editable=False, max_length=20, default='File_size')
-    width = models.IntegerField(blank=True, null=True)
-    height = models.IntegerField(blank=True, null=True)
+    width = models.IntegerField(blank=True, null=True, editable=False)
+    height = models.IntegerField(blank=True, null=True, editable=False)
     categories = models.ForeignKey(Catagory, on_delete=models.SET_NULL, null=True, blank=True)
     objects = models.Manager
     info = models.TextField(default='**info empty**', blank=True, help_text="editable caption info no reversable")
@@ -159,13 +163,16 @@ class Photo(models.Model):
 
     def save(self, *args, **kwargs):
         super(Photo, self).save(*args, **kwargs)
+        """Get EXIF"""
         im = Image.open(self.image.path)
-        self.width, self.height = im.size
         try:
             info = im.getexif()[0x010e]
             self.info = info
         except KeyError:
             pass
+        """Save image dimensions."""
+        im = Image.open(pjoin(MEDIA_ROOT, self.image.name))
+        self.width, self.height = im.size
         im.save(self.image.path)
         super(Photo, self).save(*args, **kwargs)
 
@@ -179,13 +186,6 @@ class Photo(models.Model):
     def size(self):
         """Image size."""
         return "%s x %s" % (self.width, self.height)
-
-    @mark_safe
-    def thumbnail(self):
-        return """<a href="/media/%s"><img border="0" alt="" src="/media/%s" height="40" /></a>""" % (
-            (self.image.name, self.image.name))
-
-    thumbnail.allow_tags = True
 
 
 

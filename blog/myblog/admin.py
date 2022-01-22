@@ -2,6 +2,7 @@ from django.contrib import admin
 from .models import Post, Author, Comment, Photo, Catagory, Album
 from django import forms
 from django.utils.safestring import mark_safe
+import admin_thumbnails
 
 
 
@@ -10,14 +11,15 @@ class PhotoForm(forms.ModelForm):
     class Meta:
         model = Photo
         readonly_fields = ('caption',)
-        exclude = ['info', 'size',]
+        exclude = ['info',]
         fields = '__all__'
 
 @admin.register(Photo)
+@admin_thumbnails.thumbnail('image')
 class ImageAdmin(admin.ModelAdmin):
-    list_display  = ('title', 'info', 'thumbnail', 'feature_image', 'size', 'file_size', 'description',
-                     'get_category', "albums_",)
-    readonly_fields = ('caption',)
+    list_display  = ('title', 'info', 'image_thumbnail', 'feature_image', 'file_size', 'description',
+                     'get_category', "albums_", 'size')
+    readonly_fields = ('caption', 'size')
     list_editable = ('info',)
     search_fields = ('title', 'caption', 'description')
     list_filter = ["albums",]
