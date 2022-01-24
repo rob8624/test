@@ -1,0 +1,23 @@
+{% extends "blog/base.html" %}
+{% block title %}{{ post.title }}{% endblock %}
+{% block header %}{% endblock %}
+{% block content %}
+{% load thumbnail %}
+    <div class="main">
+<h1>Galleries</h1>
+        <!-- Albums  -->
+ {% include 'pagination.html' with page=galleries %}
+
+
+        {% for album in galleries.object_list %}
+        <ul>
+       <div class="title">{{ album.title }} ({{ album.photos.count }} images)</div>
+            </ul>
+         {% for img in album.images %}
+
+         <a href="{{ img.image.url }}">
+        <img border="0" alt="" src="{{ img.image.url}}" style="max-height: 200px;/>
+         {% endfor %}
+        {% endfor %}
+
+        {% endblock %}

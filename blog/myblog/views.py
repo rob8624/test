@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Post, Comment, Photo
+from .models import Post, Comment, Photo, Album
 from django.views.generic import ListView
 from .forms import EmailPostForm, CommentForm, SearchForm
 from django.core.mail import send_mail
@@ -9,6 +9,7 @@ PageNotAnInteger
 from django.db.models import Count
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from django.contrib.postgres.search import TrigramSimilarity
+from blog.settings import MEDIA_URL
 
 
 #blog post views
@@ -136,11 +137,23 @@ def post_search(request):
 
 
 
-def photo_list(request):
-    photos = Photo.objects.all()
-    return render(request, 'post/photo_list.html', {
-        'photo': photos,
-    })
+def gallery_list(request):
+    gallery = Album.objects.filter(public=False)
+    paginator = Paginator(gallery, 3)
+    page = request.GET.get('page')
+    try:
+        galleries = paginator.page(page)
+    except PageNotAnInteger:
+        galleries = paginator.page(1)
+    except EmptyPage:
+        galleries = paginator.page(paginator.num_pages)
 
+    for album in galleries.object_list:
+        album.images = album.photos.all()[:4]
 
+    return render(request, 'gallery/gallery_list.html', {
+
+        'album.image' : album.images,
+        'galleries': galleries,
+        })
 

@@ -129,7 +129,7 @@ class Album(models.Model):
 
     @mark_safe
     def images(self):
-        lst = [x.image.name for x in self.photo_set.all()]
+        lst = [x.image.name for x in self.photos.all()]
         lst = ["<a href='/media/%s'>%s</a>" % (x, x.split('/')[-1]) for x in lst]
         return ",".join(lst)
 
@@ -140,7 +140,7 @@ class Album(models.Model):
 class Photo(models.Model):
     image = models.ImageField(upload_to='images')
     title = models.CharField(max_length=100)
-    albums = models.ManyToManyField(Album, blank=True)
+    albums = models.ManyToManyField(Album, blank=True, related_name='photos')
     feature_image = models.BooleanField(default=False)
     description = models.CharField(editable=False, max_length=150, blank=True)
     posts = models.ManyToManyField(Post, blank=True, related_name='pictures')
