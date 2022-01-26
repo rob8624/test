@@ -10,14 +10,16 @@ from PIL import Image
 from django_resized import ResizedImageField
 from blog.settings import MEDIA_ROOT
 from os.path import join as pjoin
+from sorl.thumbnail import ImageField
 
 
 
 
 
-
+# TODO right click diasbled in js.html
 # TODO add save to action menu in admin
 # TODO put managers in seperate manager file
+# TODO its curently saveing featuired images seperatly so need to write function to gen thumnail
 
 
 class PublishedManager(models.Manager):
@@ -150,7 +152,7 @@ class Photo(models.Model):
     file_size = models.CharField(editable=False, max_length=20, default='File_size')
     width = models.IntegerField(blank=True, null=True, editable=False)
     height = models.IntegerField(blank=True, null=True, editable=False)
-    categories = models.ForeignKey(Catagory, on_delete=models.SET_NULL, null=True, blank=True)
+    categories = models.ForeignKey(Catagory, on_delete=models.CASCADE, null=True, blank=True)
     objects = models.Manager
     info = models.TextField(default='**info empty**', blank=True, help_text="editable caption info no reversable")
     exif = ExifField(source='image', denormalized_fields={'lens': exifgetter('LensID'),

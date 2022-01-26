@@ -10,14 +10,20 @@
 
 
         {% for album in galleries.object_list %}
-        <ul>
-       <div class="title">{{ album.title }} ({{ album.photos.count }} images)</div>
+                <ul>
+               <div class="title">{{ album.title }} ({{ album.photos.count }} images)</div>
             </ul>
-         {% for img in album.images %}
 
-         <a href="{{ img.image.url }}">
-        <img border="0" alt="" src="{{ img.image.url}}" style="max-height: 200px;/>
+        {% for img in album.images %}
+         {% thumbnail img "100x100" crop="center" as im %}
+
+         <img src="{{ im.url }}"/>
+
+         {% endthumbnail %}
+
          {% endfor %}
-        {% endfor %}
+         {% endfor %}
 
-        {% endblock %}
+
+
+         {% endblock %}

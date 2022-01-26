@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.sitemaps',
     'django.contrib.postgres',
+    'sorl.thumbnail',
 
 
 
@@ -140,8 +141,12 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_URL = '/media/'
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = 'media/'
+
+THUMBNAIL_DEBUG = True
+THUMBNAIL_PREFIX = 'cache/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 

@@ -23,8 +23,8 @@
                         <i>Blog</i> by photographer, <strong>Robert Melen</strong></h3>
                     <h6>Welcome to my Blog. There are {% total_posts %} published articles</h6>
                      {% for images in image_featured %}
-                        <a href="{{MEDIA_URL}}{{ images.image }}">
-                        <img src="{{ MEDIA_URL }}{{ images.image.url }}" style="max-height: 200px;"/>
+                        <a href="{{ MEDIA_URL }}{{ images.image.url }}">
+                        <img src="{{ MEDIA_URL }}{{images.image.url }}" style="max-height: 200px;"/>
                     {% endfor %}
                     <h6>Subscribe</h6>
                     <hr class="solid">
