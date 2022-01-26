@@ -9,16 +9,13 @@
  {% include 'pagination.html' with page=galleries %}
 
 
-        {% for album in galleries.object_list %}
+        {% for album in galleries %}
                 <ul>
                <div class="title">{{ album.title }} ({{ album.photos.count }} images)</div>
             </ul>
+        <img src="{{ MEDIA_URL }}{{ album.thumb.thumbnail.url }}" />
+         {% endfor %}
 
-        {% for img in album.images %}
-        <a href="{{ img.image.url }}">
-        <img src="{{ img.thumbnail.url }}"/>
-        {% endfor %}
-        {% endfor %}
 
 
 

@@ -3,7 +3,7 @@ from .models import Post, Author, Comment, Photo, Catagory, Album
 from django import forms
 from django.utils.safestring import mark_safe
 import admin_thumbnails
-
+from imagekit.admin import AdminThumbnail
 
 
 class PhotoForm(forms.ModelForm):
@@ -18,7 +18,8 @@ class PhotoForm(forms.ModelForm):
 @admin_thumbnails.thumbnail('image')
 class ImageAdmin(admin.ModelAdmin):
     list_display  = ('title', 'info', 'image_thumbnail', 'feature_image', 'file_size', 'description',
-                     'get_category', "albums_", 'size')
+                     'get_category', "albums_", 'size',)
+
     readonly_fields = ('caption', 'size')
     list_editable = ('info',)
     search_fields = ('title', 'caption', 'description')
@@ -31,6 +32,10 @@ class ImageAdmin(admin.ModelAdmin):
     @admin.display(description='Category', ordering='categories__name')
     def get_category(self, obj):
         return obj.categories
+
+    class PhotoAdmin(admin.ModelAdmin):
+        list_display = ('__str__', 'admin_thumbnail')
+        admin_thumbnail = AdminThumbnail(image_field='thumbnail')
 
 
 
@@ -88,6 +93,7 @@ class PostForm(forms.ModelForm):
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name',)
     prepopulated_fields = {'slug': ('name',)}
+
 
 
 

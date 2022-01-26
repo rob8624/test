@@ -10,7 +10,9 @@ from PIL import Image
 from django_resized import ResizedImageField
 from blog.settings import MEDIA_ROOT
 from os.path import join as pjoin
-from sorl.thumbnail import ImageField
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFit
+from pilkit.processors import Thumbnail
 
 
 
@@ -124,10 +126,19 @@ class Catagory(models.Model):
 class Album(models.Model):
     title = models.CharField(max_length=60)
     public = models.BooleanField(default=False)
+    thumb =  models.ForeignKey('Photo', on_delete=models.CASCADE,
+                               related_name='thumbs', null=True )
+
+
+    def thumb_photo(self):
+        return self.thumb.image.url
+
 
 
     def __str__(self):
         return self.title
+
+
 
     @mark_safe
     def images(self):
@@ -139,8 +150,15 @@ class Album(models.Model):
 
 
 
+
+
+
 class Photo(models.Model):
     image = models.ImageField(upload_to='images')
+    thumbnail = ImageSpecField(source='image',
+                                      processors=[ResizeToFit(320, 250)],
+                                      format='JPEG',
+                                      options={'quality': 60})
     title = models.CharField(max_length=100)
     albums = models.ManyToManyField(Album, blank=True, related_name='photos')
     feature_image = models.BooleanField(default=False)
@@ -188,6 +206,8 @@ class Photo(models.Model):
     def size(self):
         """Image size."""
         return "%s x %s" % (self.width, self.height)
+
+
 
 
 

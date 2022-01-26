@@ -148,12 +148,7 @@ def gallery_list(request):
     except EmptyPage:
         galleries = paginator.page(paginator.num_pages)
 
-    for album in galleries.object_list:
-        album.images = album.photos.all()[:4]
-
     return render(request, 'gallery/gallery_list.html', {
 
-        'album.image' : album.images,
         'galleries': galleries,
         })
-
