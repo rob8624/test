@@ -3,19 +3,21 @@
 {% block header %}{% endblock %}
 {% block content %}
 
-    <div class="main">
+<div class="container">
 <h1>Galleries</h1>
         <!-- Albums  -->
- {% include 'pagination.html' with page=galleries %}
+    {% include 'pagination.html' with page=galleries %}
 
-
-        {% for album in galleries %}
-                <ul>
-               <div class="title">{{ album.title }} ({{ album.photos.count }} images)</div>
-            </ul>
-        <img src="{{ MEDIA_URL }}{{ album.thumb.thumbnail.url }}" />
-         {% endfor %}
-
+    <div class="row">
+        <div class="twelve columns">
+            {% for album in galleries %}
+            <div>{{ album.title }} <h6>Pictures {{ album.photos.count }}</h6></div>
+				<img src="{{ MEDIA_URL }}{{ album.thumb.gallery_thumbnail.url }}"
+                     class="u-img-responsive" style="padding:20px;">
+            <div><h6>{{ album.thumb.info }}</h6>
+            {% endfor %}
+		<
+    </div>
 
 
 

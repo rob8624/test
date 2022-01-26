@@ -155,10 +155,14 @@ class Album(models.Model):
 
 class Photo(models.Model):
     image = models.ImageField(upload_to='images')
-    thumbnail = ImageSpecField(source='image',
+    mid_thumbnail = ImageSpecField(source='image',
                                       processors=[ResizeToFit(320, 250)],
                                       format='JPEG',
-                                      options={'quality': 60})
+                                      options={'quality': 100})
+    gallery_thumbnail = ImageSpecField(source='image',
+                                   processors=[ResizeToFit(800, 600)],
+                                   format='JPEG',
+                                   options={'quality': 100})
     title = models.CharField(max_length=100)
     albums = models.ManyToManyField(Album, blank=True, related_name='photos')
     feature_image = models.BooleanField(default=False)
