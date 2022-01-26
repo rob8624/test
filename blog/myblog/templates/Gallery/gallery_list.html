@@ -2,7 +2,7 @@
 {% block title %}{{ post.title }}{% endblock %}
 {% block header %}{% endblock %}
 {% block content %}
-{% load thumbnail %}
+
     <div class="main">
 <h1>Galleries</h1>
         <!-- Albums  -->
@@ -15,14 +15,10 @@
             </ul>
 
         {% for img in album.images %}
-         {% thumbnail img "100x100" crop="center" as im %}
-
-         <img src="{{ im.url }}"/>
-
-         {% endthumbnail %}
-
-         {% endfor %}
-         {% endfor %}
+        <a href="{{ img.image.url }}">
+        <img src="{{ img.thumbnail.url }}"/>
+        {% endfor %}
+        {% endfor %}
 
 
 
