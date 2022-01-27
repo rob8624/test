@@ -11,7 +11,7 @@ from django_resized import ResizedImageField
 from blog.settings import MEDIA_ROOT
 from os.path import join as pjoin
 from imagekit.models import ImageSpecField
-from imagekit.processors import ResizeToFit
+from imagekit.processors import ResizeToFit, Resize, ResizeToFill,ResizeToCover, SmartResize
 from pilkit.processors import Thumbnail
 
 
@@ -125,14 +125,17 @@ class Catagory(models.Model):
 
 class Album(models.Model):
     title = models.CharField(max_length=60)
+    created = models.DateTimeField(auto_now_add=True)
+    slug = models.SlugField(unique_for_date='created', null=True)
     public = models.BooleanField(default=False)
-    thumb =  models.ForeignKey('Photo', on_delete=models.CASCADE,
+    thumb =  models.ForeignKey('Photo', on_delete=models.SET_NULL,
                                related_name='thumbs', null=True )
 
 
-    def thumb_photo(self):
-        return self.thumb.image.url
 
+
+    def get_absolute_url(self):
+        return reverse('myblog:gallery_detail', args=[self.slug])
 
 
     def __str__(self):
@@ -160,7 +163,7 @@ class Photo(models.Model):
                                       format='JPEG',
                                       options={'quality': 100})
     gallery_thumbnail = ImageSpecField(source='image',
-                                   processors=[ResizeToFit(800, 600)],
+                                   processors=[ResizeToFit(600, 200)],
                                    format='JPEG',
                                    options={'quality': 100})
     title = models.CharField(max_length=100)

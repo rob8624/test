@@ -42,7 +42,8 @@ class ImageAdmin(admin.ModelAdmin):
 @admin.register(Album)
 class AlbumAdmin(admin.ModelAdmin):
     search_fields = ["title"]
-    list_display = ["title", 'images']
+    list_display = ["title", 'images', 'created']
+    prepopulated_fields = {'slug': ('title',)}
 
 
 

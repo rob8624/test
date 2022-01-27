@@ -152,3 +152,11 @@ def gallery_list(request):
 
         'galleries': galleries,
         })
+
+
+def gallery_detail(request, gallery):
+    gallery = get_object_or_404(Album, slug=gallery)
+    images = gallery.photos.all()
+    return render(request,  'gallery/gallery_detail.html', {
+                  'gallery': gallery,
+    'images': images})

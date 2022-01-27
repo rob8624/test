@@ -11,6 +11,9 @@
     <div class="row">
         <div class="twelve columns">
             {% for album in galleries %}
+            <a href="{{ album.get_absolute_url }}">
+            {{ album.title }}
+        </a>
             <div>{{ album.title }} <h6>Pictures {{ album.photos.count }}</h6></div>
 				<img src="{{ MEDIA_URL }}{{ album.thumb.gallery_thumbnail.url }}"
                      class="u-img-responsive" style="padding:20px;">
