@@ -130,12 +130,15 @@ class Album(models.Model):
     public = models.BooleanField(default=False)
     thumb =  models.ForeignKey('Photo', on_delete=models.SET_NULL,
                                related_name='thumbs', null=True )
+    categories = models.ForeignKey(Catagory, on_delete=models.CASCADE, null=True, blank=True)
+    summary = models.CharField(max_length=200, blank=True)
 
 
 
 
     def get_absolute_url(self):
-        return reverse('myblog:gallery_detail', args=[self.slug])
+        return reverse('myblog:gallery_detail', args=[self.slug,
+                                                      self.pk])
 
 
     def __str__(self):
@@ -163,7 +166,7 @@ class Photo(models.Model):
                                       format='JPEG',
                                       options={'quality': 100})
     gallery_thumbnail = ImageSpecField(source='image',
-                                   processors=[ResizeToFit(600, 200)],
+                                   processors=[ResizeToFit(500, 350)],
                                    format='JPEG',
                                    options={'quality': 100})
     title = models.CharField(max_length=100)

@@ -9,18 +9,21 @@
         {% include "blog/nav_bar.html" %}
         <div class="container">
             <div class="row">
-                <div class="twelve columns"><p style="top: 25px; position: relative;">{% now "jS F Y" %}</p></div>
+                <div class="twelve columns"><p style="top: 25px; position: relative;"><h6 style="color:black;">{% now "jS F Y" %}</h6></p></div>
             </div>
         </div>
         {% block header %}
         <div class="container" style="background-color: #E8E8E8;" >
             <div class="row">
                 <div class="twelve columns" style="text-align: center; clear: right;
-                 margin-top: -50px;">
+                 margin-top: -50px; background-color: white; ">
+                    <h6 style="color:black;">{% now "jS F Y" %}</h6>
+
                     <hr class="solid">
 
-                    <h3 style="letter-spacing: 1px; position:relative; top:10px; ">
+                    <h3 style="letter-spacing: 1px; position:relative; top:15px; ">
                         <i>Blog</i> by photographer, <strong>Robert Melen</strong></h3>
+
                     <h6>Welcome to my Blog. There are {% total_posts %} published articles</h6>
                      {% for images in image_featured %}
 
@@ -34,12 +37,14 @@
         </div>
         {% endblock %}
         {% block sticky %}
+        <div class="container" style="background: rgb(255, 255, 255);">
         <div id="sticky" style=" position: sticky;
         top: 0; z-index: 5;
-        box-shadow: 5px 5px 5px grey; height: 80px;">
+         height: 80px; ">
             {% block featured %}
             {% include "blog/blogpage.html" %}
             {% endblock %}
+        </div>
         </div>
         {%  endblock %}
 

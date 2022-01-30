@@ -1,27 +1,37 @@
 {% extends "blog/base.html" %}
 {% block title %}{{ post.title }}{% endblock %}
 {% block header %}{% endblock %}
+{% block featured %}<h1>Gallery</h1>{% endblock %}
 {% block content %}
 
-<div class="container">
-<h1>Galleries</h1>
-        <!-- Albums  -->
+<div class="container" style="background-color: white;">
     {% include 'pagination.html' with page=galleries %}
-
     <div class="row">
-        <div class="twelve columns">
-            {% for album in galleries %}
-            <a href="{{ album.get_absolute_url }}">
-            {{ album.title }}
-        </a>
-            <div>{{ album.title }} <h6>Pictures {{ album.photos.count }}</h6></div>
-				<img src="{{ MEDIA_URL }}{{ album.thumb.gallery_thumbnail.url }}"
-                     class="u-img-responsive" style="padding:20px;">
-            <div><h6>{{ album.thumb.info }}</h6>
-            {% endfor %}
-		<
+        <div class="six columns">
+            <h1>test</h1></div>
+        <div class="six columns">
+            <h1>test2</h1></div>
     </div>
 
+    <div class="row" style="background-color: white;">
+        <div class="twelve columns">
+            <div style="padding-top: 10px;">
+            {% for album in galleries %}
+
+                <div style="position:relative; top:30px;">
+                    <a href="{{ album.get_absolute_url }}"><h5>{{ album.title }} / (images {{ album.photos.count }})</h5></a></div>
+                <div><h6>{{ album.summary }}</h6></div>
+                <div style="position:relative; top:10px;" <h6><u>Created/{{ album.created|date:"F d Y" }}</u></h6></div>
+
+                    <div><a href="{{ album.get_absolute_url }}">
+				<img src="{{ MEDIA_URL }}{{ album.thumb.gallery_thumbnail.url }}"
+                     style="padding:20px;"></a></div>
+                <hr />
+
+            {% endfor %}
+        </div>
 
 
-         {% endblock %}
+
+{% endblock %}
+

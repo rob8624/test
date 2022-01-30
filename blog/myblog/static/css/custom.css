@@ -28,3 +28,36 @@ a:link {
   background-color: transparent;
   text-decoration: none;
 }
+
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 20px;
+  align-items: start;
+  }
+.grid img {
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 6px 0px  rgba(0,0,0,0.3);
+  max-width: 100%;
+  }
+
+
+
+section.section {
+    background: transparent;
+}
+
+.slideshow {
+    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.3);
+
+    .slide img {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .slick-prev:before,
+    .slick-next:before {
+        color: black;
+    }
+}

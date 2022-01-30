@@ -1,7 +1,33 @@
 {% extends "blog/base.html" %}
 {% block content %}
-{% for im in images %}
+{% block header %}{% endblock %}
 <h1>{{ im.title }}</h1>
-<img src="{{im.image.url }}">
-{% endfor %}
+<section class="section">
+    <div class="columns">
+        <div class="column is-10 is-offset-1">
+            <h3 class="title is-3">
+                Slick Slider
+            </h3>
+                <div class="slideshow">
+                    <div class="slide">
+
+                        {% for im in images %}
+
+                        <img src="{{im.gallery_thumbnail.url }}" alt="" />
+                        {% endfor %}
+                    </div>
+                    </section>
+
+
+
+</div>
+
 {% endblock %}
+
+
+
+
+
+
+
+
