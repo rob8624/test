@@ -139,7 +139,7 @@ def post_search(request):
 
 def gallery_list(request):
     gallery = Album.objects.filter(public=True)
-    paginator = Paginator(gallery, 3)
+    paginator = Paginator(gallery, 4)
     page = request.GET.get('page')
     try:
         galleries = paginator.page(page)

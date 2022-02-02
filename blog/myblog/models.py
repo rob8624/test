@@ -169,6 +169,10 @@ class Photo(models.Model):
                                    processors=[ResizeToFit(300, 250)],
                                    format='JPEG',
                                    options={'quality': 100})
+    gallery_detail = ImageSpecField(source='image',
+                                       processors=[ResizeToFit(1000, 850)],
+                                       format='JPEG',
+                                       options={'quality': 100})
     title = models.CharField(max_length=100)
     albums = models.ManyToManyField(Album, blank=True, related_name='photos')
     feature_image = models.BooleanField(default=False)

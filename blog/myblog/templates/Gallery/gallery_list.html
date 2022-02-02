@@ -6,12 +6,21 @@
 
 <div class="container" style="background-color: white;">
     {% include 'pagination.html' with page=galleries %}
+
     <div class="row">
+        {% for album in galleries %}
         <div class="six columns">
-            <h1>test</h1></div>
-        <div class="six columns">
-            <h1>test2</h1></div>
+             <div style="position:relative; top:30px;">
+                    <a  href="{{ album.get_absolute_url }}"><h5>{{ album.title }} / (images {{ album.photos.count }})</h5></a></div>
+                <div><h6>{{ album.summary }}</h6></div>
+                <div style="position:relative; top:2px;" <h6><u>Created/{{ album.created|date:"F d Y" }}</u></h6></div>
+
+                    <div><a href="{{ album.get_absolute_url }}">
+				<img src="{{ MEDIA_URL }}{{ album.thumb.gallery_thumbnail.url }}"
+                     style="padding:0px; width: 40%; height: auto;"></a></div>
+        <hr>
     </div>
+    {% endfor %}
 
     <div class="row" style="background-color: white;">
         <div class="twelve columns">
