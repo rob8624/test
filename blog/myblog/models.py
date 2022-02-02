@@ -162,11 +162,11 @@ class Album(models.Model):
 class Photo(models.Model):
     image = models.ImageField(upload_to='images')
     mid_thumbnail = ImageSpecField(source='image',
-                                      processors=[ResizeToFit(320, 250)],
+                                      processors=[ResizeToFit(220, 150)],
                                       format='JPEG',
                                       options={'quality': 100})
     gallery_thumbnail = ImageSpecField(source='image',
-                                   processors=[ResizeToFit(500, 350)],
+                                   processors=[ResizeToFit(300, 250)],
                                    format='JPEG',
                                    options={'quality': 100})
     title = models.CharField(max_length=100)
