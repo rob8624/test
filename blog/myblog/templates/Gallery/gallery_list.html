@@ -9,7 +9,7 @@
 
     <div class="row">
         {% for album in galleries %}
-        <div class="six columns">
+        <div class="four columns">
              <div style="position:relative; top:30px;">
                     <a  href="{{ album.get_absolute_url }}"><h5>{{ album.title }} / (images {{ album.photos.count }})</h5></a></div>
                 <div><h6>{{ album.summary }}</h6></div>
