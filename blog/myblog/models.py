@@ -62,6 +62,7 @@ class Post(models.Model):
     slug = models.SlugField(unique_for_date='publish')
     author = models.ForeignKey(Author, on_delete=models.CASCADE,
                                related_name='blog_posts', null=True)
+    cover = models.ForeignKey('Photo', on_delete=models.CASCADE, null=True, related_name='cover')
 
     body = models.TextField()
     publish = models.DateTimeField(default=timezone.now)
