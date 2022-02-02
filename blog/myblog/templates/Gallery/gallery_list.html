@@ -19,13 +19,13 @@
             {% for album in galleries %}
 
                 <div style="position:relative; top:30px;">
-                    <a href="{{ album.get_absolute_url }}"><h5>{{ album.title }} / (images {{ album.photos.count }})</h5></a></div>
+                    <a  href="{{ album.get_absolute_url }}"><h5>{{ album.title }} / (images {{ album.photos.count }})</h5></a></div>
                 <div><h6>{{ album.summary }}</h6></div>
-                <div style="position:relative; top:10px;" <h6><u>Created/{{ album.created|date:"F d Y" }}</u></h6></div>
+                <div style="position:relative; top:2px;" <h6><u>Created/{{ album.created|date:"F d Y" }}</u></h6></div>
 
                     <div><a href="{{ album.get_absolute_url }}">
 				<img src="{{ MEDIA_URL }}{{ album.thumb.gallery_thumbnail.url }}"
-                     style="padding:20px; width: 100%; height: auto;"></a></div>
+                     style="padding:0px; width: 100%; height: auto;"></a></div>
                 <hr />
 
             {% endfor %}

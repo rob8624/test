@@ -6,21 +6,24 @@
 
 
   <!-- Full images with numbers and message Info -->
-  <div class="Container">
-    <div class="row">
 
-      <div class="twelve columns">
+  <div class="Container">
+      <div class="row">
+          <div class="twelve columns">
 {% for im in images %}
         <div>
           <div style="position:relative">
           <img src="{{im.gallery_thumbnail.url }}" style="width: 100%; height: auto;">
-            <div style="position:absolute; left:0px; top:0px; background-color: white;"<h5>Copyright : Robert Melen</h5></div>
+            <div style="position:absolute; left:0px; top:0px; background-color:
+            white;"<h5>Copyright : Robert Melen</h5></div>
 </div>
         </div>
       </div>
       <div>{{ im.info }}</div>
       {% endfor %}
     </div>
+<br>
+<a class="button" href="/myblog/gallery">Back to Galleries</a>
 
 
 {% endblock %}
