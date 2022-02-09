@@ -12,18 +12,18 @@
           <div class="twelve columns">
 {% for im in images %}
         <div>
-          <div style="position:relative">
-          <img src="{{im.gallery_detail.url }}" style="width: 100%; height: auto;">
-            <div style="position:absolute; left:0px; top:0px; width: 20%; font-size: 1.2vmin; background-color:
+          <div style="position:relative;">
+          <img src="{{im.gallery_detail.url }}" style="width: 100%; height: auto%;">
+            <div style="position:absolute; left:0px; top:0px; width: 25%; font-size: 1.2vmin; background-color:
             white;"<h5>Copyright : Robert Melen</h5></div>
 </div>
         </div>
       </div>
-      <div>{{ im.info }}</div>
-      <a class="button" href="/myblog/gallery">Purchase picture</a>
+      <div style="font-size: 1.8vmin; ">{{ im.info }}</div>
+       <br>
       {% endfor %}
     </div>
-<br>
+
 <a class="button button-primary" href="/myblog/gallery">Back to Galleries</a>
 
 

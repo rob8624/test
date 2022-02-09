@@ -5,7 +5,7 @@
  <style>
     a { color: black; } /* CSS link color */
   </style>
-<body style="background-color: #F0F0F0; text-align:center" xmlns="">
+<div style="background-color: #F0F0F0; text-align:center" xmlns="">
         {% include "blog/nav_bar.html" %}
         <div class="container">
             <div class="row">
@@ -13,18 +13,27 @@
             </div>
         </div>
         {% block header %}
+        </div>
+        <div class="container" >
+        <nav style="position: relative;">
+
+                 <div class="row">
+                     <div class="three columns" style="font-family: Times New Roman;">ARCHIVE/Featured Posts</div>
+                 </div>
+        </nav>
+</div>
         <div class="container" style="background-color: #E8E8E8;" >
             <div class="row">
                 <div class="twelve columns" style="text-align: center; clear: right;
                  margin-top: -50px; background-color: white; ">
-                    <h6 style="color:black;">{% now "jS F Y" %}</h6>
+
 
                     <hr class="solid">
 
                     <h3 style="letter-spacing: 1px; position:relative; top:5px; ">
                         <i>Blog</i> by photographer, <strong>Robert Melen</strong></h3>
 
-                    <h6>Welcome to my Blog. There are {% total_posts %} published articles</h6>
+                    <h6 style="font-family:Georgia;">Welcome to my Blog/I wrote this using the Django framework written in Python. There are {% total_posts %} published articles</h6>
                      {% for images in image_featured %}
 
 
@@ -35,6 +44,8 @@
                 </div>
             </div>
         </div>
+
+
         {% endblock %}
         {% block sticky %}
         <div class="container" style="background: rgb(255, 255, 255);">

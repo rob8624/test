@@ -14,7 +14,8 @@ urlpatterns = [
     path('<int:post_id>/share/', views.post_share, name='post_share'),
     path('search/', views.post_search, name='post_search'),
     path('gallery/', views.gallery_list, name='gallery_list'),
-    path('<slug:gallery>/<int:pk>', views.gallery_detail, name='gallery_detail')
+    path('<slug:gallery>/<int:pk>', views.gallery_detail, name='gallery_detail'),
+    path('contact/', views.contact_form, name='contact_form'),
 
 
 

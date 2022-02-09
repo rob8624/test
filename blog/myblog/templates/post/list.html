@@ -4,23 +4,28 @@
 {% block content %}
 
 {% if tag %}
-    <h2>Posts tagged with "{{ tag.name }}"</h2>
+<h2 xmlns="http://www.w3.org/1999/html">Posts tagged with "{{ tag.name }}"</h2>
 {% endif %}
-{% for post in posts %}
-<div>
+<div class="container">
+    <div class="row">
+        <div class="twelve columns">
+    {% for post in posts %}
     <h5>
+
         <a href="{{ post.get_absolute_url }}">
             {{ post.title }}
-            <div><img src="{{ media_uel }}{{ post.cover.gallery_detail.url }}" style="width:auto; height:auto;"></div>
+            <div style="-webkit-box-shadow: -1px 9px 18px 0px rgba(0,0,0,0.75);">
+                <img src="{{ media_url }}{{ post.cover.gallery_detail.url }}" style=" max-width:80%; height:auto;">
+            </div>
         </a>
     </h5>
 
     <p>
         <small><em>Published {{ post.publish }} by {{ post.author }}</small></em>
     </p>
-    {{ post.body|markdown|truncatewords:30 }}
+    {{ post.body|markdown|truncatewords:15 }}
     <hr style="width : 15%; border-color: #123455">
-</div>
+
 <div>
     <p class="tags"><h7>Tags:</h7>
                 {% for tag in post.tags.all %}
@@ -31,7 +36,11 @@
                 {% endfor %}
     </p>
     <hr>
-</div>
-{% endfor %}
-    {% include "pagination.html" with page=posts %}
+
+    </div>
+</div>{% include "pagination.html" with page=posts %}
+    </div>
+    {% endfor %}
+
+
 {% endblock %}
