@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
-
+from django.views.generic.dates import ArchiveIndexView
+from .models import Post
 
 app_name = 'myblog'
 
@@ -16,6 +17,9 @@ urlpatterns = [
     path('gallery/', views.gallery_list, name='gallery_list'),
     path('<slug:gallery>/<int:pk>', views.gallery_detail, name='gallery_detail'),
     path('contact/', views.contact_form, name='contact_form'),
+    path('archive/<int:year>/',
+         ArchiveIndexView.as_view(model=Post, date_field="created"),
+         name="post_archive"),
 
 
 

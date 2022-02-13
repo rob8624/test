@@ -14,18 +14,31 @@
         </div>
         {% block header %}
         </div>
-        <div class="container" >
-        <nav style="position: relative;">
+ {% regroup posts_all by publish.year as year_list %}
 
-                 <div class="row">
-                     <div class="three columns" style="font-family: Times New Roman;">ARCHIVE/Featured Posts</div>
-                 </div>
-        </nav>
-</div>
+    <ul>
+    {% for year in year_list %}
+        <li>{{ year.grouper }}
+            {% regroup year.list by publish.month as month_list %}
+            <ul>
+            {% for month in month_list %}
+
+                <li>><a href="{% url "myblog:post_archive" year.grouper %}">{{ month.list.0.posted|date:'b' }}  ({{ month.list|length }})</a></li>
+
+            {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+    </ul>
+
+
+
+
         <div class="container" style="background-color: #E8E8E8;" >
             <div class="row">
                 <div class="twelve columns" style="text-align: center; clear: right;
                  margin-top: -50px; background-color: white; ">
+
 
 
                     <hr class="solid">
@@ -63,10 +76,13 @@
             <div class="row">
                 <div class="twelve columns" style="padding:50px; text-align: center;
                  background-color: white;">
+
                     {% block content %}
                     {% endblock %}
                 </div>
             </div>
         </div>
+ {% block archive %}
+                    {% endblock %}
 {% include "blog/js.html" %}
         </html>

@@ -79,6 +79,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'myblog.context_processors.image_featured',
+                'myblog.context_processors.posts_all',
 
             ],
         },

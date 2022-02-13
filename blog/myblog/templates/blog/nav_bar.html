@@ -1,6 +1,7 @@
 {% load blog_tags %}
 <nav class="nav-show">
             <div class="container">
+
                 <ul>
                     <li><a href="{% url 'myblog:post_list' %}">Home</a></li>
                     <li>
@@ -17,8 +18,10 @@
                             <li><a href="#">My Decks</a></li>
                             <li><a href="#">My Combos</a></li>
                             <li><a href="#">My Collection</a></li>
-                            <li><a href="#">My Shop</a></li>
+                            <li><a href="#">My Shop</a> </li>
+
                         </ul>
+
                     </li>
                     <li class="u-pull-right" style="padding: 1%;"><a class="button button-primary" href="#login">Login</a></li>
                     <li class="right" style="padding: 1%;" ><a class="button button-primary" href="#register">Register</a></li>
@@ -26,5 +29,7 @@
                         <a href="javascript:void(0);" onclick="toggleMobileNav();">&#9776;</a>
                     </li>
                 </ul>
+
             </div>
+
         </nav>
