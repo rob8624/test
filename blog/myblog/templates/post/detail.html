@@ -8,43 +8,45 @@
 {% block sticky %}{% endblock %}
 {% load social_share %}
 {% block content %}
-<div style="position:relative; top:-5rem;">Share
+<div style="position:relative; top:-4rem;">Share
     {% post_to_facebook object_or_url '<i class="fab fa-facebook" style="display: inline;"></i>' %}
      {% post_to_twitter '<i class="fab fa-twitter"></i>' object_or_url '<i class="fab fa-twitter"></i>' %}</div>
 <div class="container" style="background-color: #EBEBEB;" ></div>
 
     <div><h1 style=" border-bottom: 2px #228B22 solid; position:relative; top:-5rem">{{ post.title }}</h1></div>
-    <p class="date">
+    <p >
 <div style=" margin-top: -20px;font-size: 1.6vmin; position:relative; top:-5rem "><h6>Written by {{ post.author }}
             <img src="{{ media_url }}{{post.author.photo.url }}"
                  style="max-height: 20px; border-radius: 50%;"/>/published on {{ post.publish }}</div>
+<div style="position:relative; top:-4rem;"><strong>Summary/{{ post.summary }}</strong> </div>
     </p>
-
-
-
-
-<div><strong> {{ post.summary }}</strong> </div>
-
 </div >
 
-<div class="article" style="background-color: white;" >
 
-    {{ post.body|markdown }}
+<div class="container">
+    <div class="row" >
+        <div class="twelve columns" style="text-align:center;">
+                {{ post.body|markdown }}
+                 <div><a href="{% url 'myblog:post_share' post.id %}">
+                        Share this post
+                                        </a>
+                 </div>
+        </div>
     </div>
-<div style="margin-bottom: 4rem;">
-<p>
-    <a href="{% url 'myblog:post_share' post.id %}">
-    Share this post
-    </a>
-</p>
 </div>
+<hr>
+
+
+<div class="container">
+    <div class="row">
+        <div class="twelve columns" style="text-align:center;" >
 <h6>Similar posts</h6>
 {% for post in similar_posts %}
     <div style="display: inline-block; padding: 0px 10px; margin-bottom: 4rem;">
         <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
     </div>
 {%  empty %}
-    There are no similar posts
+
 {% endfor %}
 {% if post.comments_option %}
 <div>
@@ -71,7 +73,10 @@
 {% if new_comment %}
     <h3>Your comment has been added. Thanks!</h3>
 {% else %}
-<div class="form-box">
+        </div>
+    </div>
+</div>
+    <div class="form-box">
     <h4>Add a comment about this post</h4>
     <form method="post">
         <label class="label">Name</label>
@@ -83,8 +88,8 @@
         {% csrf_token %}
         <p><input class="button-primary" type="submit" value="Submit" />
     </form>
-</div>
-</div>
+    </div>
+
 {% endif %}
 {% else %}
 <h6>Comments are disabled for this post</h6>

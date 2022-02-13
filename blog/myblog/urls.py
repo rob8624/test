@@ -17,7 +17,7 @@ urlpatterns = [
     path('gallery/', views.gallery_list, name='gallery_list'),
     path('<slug:gallery>/<int:pk>', views.gallery_detail, name='gallery_detail'),
     path('contact/', views.contact_form, name='contact_form'),
-    path('archive/<int:year>/',
+    path('archive/',
          ArchiveIndexView.as_view(model=Post, date_field="created"),
          name="post_archive"),
 
