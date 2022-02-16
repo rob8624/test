@@ -1,31 +1,25 @@
 {% load blog_tags %}
 <nav class="nav-show">
-            <div class="container">
-
+    <div class="container">
+        <ul>
+            <li><a href="{% url 'myblog:post_list' %}">Home</a></li>
+            <li>
+                <a>Images</a>
                 <ul>
-                    <li><a href="{% url 'myblog:post_list' %}">Home</a></li>
-                    <li>
-                        <a href="{% url 'myblog:gallery_list' %}">Images</a>
-                        <ul>
-                            <li><a href="#">Galleries</a></li>
-                            <li><a href="#">License/Purchase</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#combos">Contact</a></li>
-                    <li>
-                        <a href="{% url 'myblog:post_archive' %}">Blog Archive</a>
-
-
-                    </li>
-
-                    </li>
-                    <li class="u-pull-right" style="padding: 1%;"><a class="button button-primary" href="#login">Login</a></li>
-                    <li class="right" style="padding: 1%;" ><a class="button button-primary" href="#register">Register</a></li>
-                    <li class="icon">
-                        <a href="javascript:void(0);" onclick="toggleMobileNav();">&#9776;</a>
-                    </li>
+                    <li><a href="{% url 'myblog:gallery_list' %}">Galleries</a></li>
+                    <li><a href="#">License/Purchase</a></li>
                 </ul>
-
-            </div>
-
-        </nav>
+            </li>
+            <li><a href="{% url 'myblog:contact_form' %}">Contact</a></li>
+            <li>
+                <a href="{% url 'myblog:post_archive' %}">Blog Archive</a>
+            </li>
+            </li>
+            <li class="u-pull-right" style="padding: 1%;"><a class="button button-primary" href="#login">Login</a></li>
+            <li class="right" style="padding: 1%;" ><a class="button button-primary" href="#register">Register</a></li>
+            <li class="icon">
+                <a href="javascript:void(0);" onclick="toggleMobileNav();">&#9776;</a>
+            </li>
+        </ul>
+    </div>
+</nav>

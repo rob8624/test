@@ -1,5 +1,5 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Post, Comment, Photo, Album
+from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
+from .models import Post, Comment, Photo, Album, Author
 from django.views.generic import ListView
 from .forms import EmailPostForm, CommentForm, SearchForm, ContactForm
 from django.core.mail import send_mail
@@ -10,6 +10,7 @@ from django.db.models import Count
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from django.contrib.postgres.search import TrigramSimilarity
 from django.views.generic.dates import ArchiveIndexView
+from django.contrib import messages
 
 
 
@@ -24,6 +25,7 @@ from django.views.generic.dates import ArchiveIndexView
 
 
 def contact_form(request):
+    contact = Author.objects.get(name='Robert Melen')
     form = ContactForm()
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -33,9 +35,10 @@ def contact_form(request):
             message = form.cleaned_data['message']
             email = form.cleaned_data['email']
             send_mail(name, message, email, ['admin@blog.com'])
+            return HttpResponseRedirect(request.path_info)
 
-
-    return render(request, 'post/contact_form.html', {'form': form})
+    return render(request, 'post/contact_form.html', {'form': form,
+                                                      'contact': contact})
 
 
 
@@ -99,6 +102,8 @@ def post_detail(request, year, month, day, post):
             new_comment.post = post
             #save the comment to the database
             new_comment.save()
+            messages.success(request, 'Your comment will be checked and then added, thankyou.')
+            return HttpResponseRedirect(request.path_info)
     else:
         comment_form = CommentForm()
     post_tags_ids = post.tags.values_list('id', flat=True)

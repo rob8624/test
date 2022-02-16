@@ -11,7 +11,8 @@
 <div style="position:relative; top:-4rem;">Share
     {% post_to_facebook object_or_url '<i class="fab fa-facebook" style="display: inline;"></i>' %}
      {% post_to_twitter '<i class="fab fa-twitter"></i>' object_or_url '<i class="fab fa-twitter"></i>' %}</div>
-<div class="container" style="background-color: #EBEBEB;" ></div>
+
+<div class="container" >
 
     <div><h1 style=" border-bottom: 2px #228B22 solid; position:relative; top:-5rem">{{ post.title }}</h1></div>
     <p >
@@ -21,6 +22,13 @@
 <div style="position:relative; top:-4rem;"><strong>Summary/{{ post.summary }}</strong> </div>
     </p>
 </div >
+                {% if messages %}
+
+                        {% for message in messages %}
+                        {% if message.tags %} {{ message.tags }} {% endif %}<h3>{{ message }}</h3>
+                {% endfor %}
+
+                {% endif %}
 
 
 <div class="container">
@@ -63,6 +71,7 @@
             {{ comment.created }}
         </p>
         {{ comment.body|linebreaks }}
+        <hr>
     </div>
 
 
@@ -71,7 +80,7 @@
 {% endfor %}
 {% include "pagination.html" with page=posts %}
 {% if new_comment %}
-    <h3>Your comment has been added. Thanks!</h3>
+
 {% else %}
         </div>
     </div>
@@ -87,7 +96,9 @@
         {% render_field comment_form.body class="textarea" placeholder="This post is...." %}
         {% csrf_token %}
         <p><input class="button-primary" type="submit" value="Submit" />
+
     </form>
+
     </div>
 
 {% endif %}

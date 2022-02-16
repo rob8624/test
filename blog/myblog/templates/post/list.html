@@ -2,7 +2,7 @@
 {% load blog_tags %}
 {% block title %}My Blog{% endblock %}
 {% block content %}
-
+<h1>Latest Posts</h1>
 {% if tag %}
 <h2 xmlns="http://www.w3.org/1999/html">Posts tagged with "{{ tag.name }}"</h2>
 {% endif %}
@@ -29,16 +29,13 @@
 <div>
     <p class="tags"><h7>Tags:</h7>
         {% for tag in post.tags.all %}
-            <a href="{% url "myblog:post_list_by_tag" tag.slug %} {{ tag.name }}"
+            <a href="{% url "myblog:post_list_by_tag" tag.slug %}"> {{ tag.name }}"
                 </a>
                 {% if not forloop.last %},{% endif %}
                 {% endfor %}
     </p>
     <hr>
-
 </div>
-</div>{% include "pagination.html" with page=posts %}</div>
-      {% endfor %}
-
-
-{% endblock %}
+            {% endfor %}
+{% include "pagination.html" with page=posts %}
+            {% endblock %}

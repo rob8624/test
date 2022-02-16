@@ -16,9 +16,7 @@
                         <i>Blog</i> by photographer, <strong>Robert Melen</strong></h3>
                     <h6 style="font-family:Georgia;">Welcome to my Blog/I wrote this using the Django framework written in Python. There are {% total_posts %} published articles</h6>
                      {% for images in image_featured %}
-
-
-                        <img src="{{images.mid_thumbnail.url }}" style="max-height: 400px;"/>
+                    <img src="{{images.mid_thumbnail.url }}" style="max-height: 400px;"/>
                     {% endfor %}
                     <h6>Subscribe</h6>
                     <hr class="solid">
@@ -31,21 +29,21 @@
         <div id="sticky" style=" position: sticky;
         top: 0; z-index: 5;
          height: 80px; ">
-            {% block featured %}
-            {% include "blog/blogpage.html" %}
-            {% endblock %}
         </div>
         </div>
 {%  endblock %}
         <div class="container">
             <div class="row">
-                <div class="twelve columns" style="padding:50px; text-align: center;
+                <div class="twelve columns" style="position:relative;top:30px; text-align: center;
                  background-color: white;">
                     {% block content %}
                     {% endblock %}
                 </div>
             </div>
         </div>
-
+<div class="footer" style="">
+    Website copyright/Robert Melen 2022
+</div>
 {% include "blog/js.html" %}
         </html>
+

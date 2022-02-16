@@ -24,7 +24,7 @@ input, textarea {
 
 
 a:link {
-  color: green;
+  color: blue;
   background-color: transparent;
   text-decoration: none;
 }
@@ -42,7 +42,12 @@ a:link {
   left: 16px;
 }
 
-
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
 
 
 

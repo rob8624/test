@@ -34,10 +34,16 @@ class FeaturedManager(models.Manager):
 
 
 class Author(models.Model):
-    name = models.CharField(max_length=100, null=True, blank=True)
+    name = models.CharField(max_length=100, null=True, blank=False)
     email = models.EmailField(max_length=70,blank=True,unique=True)
     bio = models.TextField(max_length=200, null=True, blank=True)
     photo = ResizedImageField(size=[500, 400], upload_to='authors', default='author pic')
+    bio = models.TextField(max_length=1000, null=True, blank=True)
+    bio_image = ResizedImageField(size=[2000, 1000], upload_to='bio', default='bio_pic')
+    Facebook_link = models.TextField(max_length=1000, null=True, blank=True)
+    Twitter_link = models.TextField(max_length=1000, null=True, blank=True)
+    Instagram_link = models.TextField(max_length=1000, null=True, blank=True)
+
 
     def __str__(self):
         return self.name
@@ -102,7 +108,7 @@ class Comment(models.Model):
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    active = models.BooleanField(default=True)
+    active = models.BooleanField(default=False)
 
 
     class Meta:

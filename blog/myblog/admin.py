@@ -50,7 +50,7 @@ class AlbumAdmin(admin.ModelAdmin):
 
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email','author_thumbnail',)
+    list_display = ('name', 'email','author_thumbnail', 'bio', 'Facebook_link', 'Twitter_link', 'Instagram_link')
 
 
 @admin.register(Post)
