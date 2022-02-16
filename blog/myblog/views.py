@@ -35,7 +35,7 @@ def contact_form(request):
             message = form.cleaned_data['message']
             email = form.cleaned_data['email']
             send_mail(name, message, email, ['admin@blog.com'])
-            messages.success(request, 'Your comment will be checked and then added, thankyou.')
+            messages.success(request, 'Your message has been sent, I will reply asap!')
             return HttpResponseRedirect(request.path_info)
 
     return render(request, 'post/contact_form.html', {'form': form,

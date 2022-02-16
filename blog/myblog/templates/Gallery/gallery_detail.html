@@ -1,29 +1,24 @@
 {% extends "blog/base.html" %}
 {% block content %}
 {% block header %}{% endblock %}
-
-
-
-
-  <!-- Full images with numbers and message Info -->
-
-  <div class="Container">
-      <div class="row">
-          <div class="twelve columns">
+<!-- Full images with numbers and message Info -->
+<div class="Container">
+    <div class="row">
+        <div class="twelve columns">
 {% for im in images %}
-        <div>
-          <div style="position:relative;">
-          <img src="{{im.gallery_detail.url }}" style="width: 100%; height: auto%;">
-            <div style="position:absolute; left:0px; top:0px; width: 25%; font-size: 1.2vmin; background:
-            rgba(255, 255, 255, 0.23);"<h5>Copyright : Robert Melen</h5></div>
-</div>
+            <div>
+                <div style="position:relative;">
+                  <img src="{{im.gallery_detail.url }}" style="width: 100%; height: auto%;">
+                    <div style="position:absolute; left:0px; top:0px; width: 25%; font-size: 1.2vmin; background:
+                    rgba(255, 255, 255, 0.23);"<h5>Copyright : Robert Melen</h5></div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div style="font-size: 1.8vmin; ">{{ im.info }}</div>
-       <br>
-      <br>
-      {% endfor %}
-    </div>
+            <div style="font-size: 1.8vmin; ">{{ im.info }}</div>
+            <br>
+            <br>
+ {% endfor %}
+        </div>
 
 <a class="button button-primary" href="/myblog/gallery">Back to Galleries</a>
 
