@@ -1,6 +1,5 @@
 {% extends "blog/base.html" %}
 {% block header %}
-
 {% endblock %}
 {% block content %}
 <body>
@@ -9,34 +8,31 @@
         <div class="twelve columns" style="padding-bottom: 8rem;">
             <h1>About/Contact Info</h1>
                 Socials/Email :
-
-
                 <a href="{{ contact.Twitter_link }}" target="_blank" title="Facebook Page"><i class="fab fa-twitter fa-2x"></i></a>
                 <a href="{{ contact.Facebook_link }}" title="Facebook Page"><i class="fab fa-facebook fa-2x"></i></a>
                 <a href="{{ contact.Instagram_link }}" title="Facebook Page"><i class="fab fa-instagram fa-2x"></i></a>/
                 robert_melen@yahoo.co.uk
-
         </div>
     </div>
 </div>
-
-
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags %} {{ message.tags }} {% endif %}<h3>{{ message }}</h3>
+    {% endfor %}
+{% endif %}
 <div class="container">
     <div class="row">
         <div class="one-half column">
             <hr>
            <img src="{{ MEDIA_URL }}{{ contact.bio_image.url }}"  style="width: 90%; height: auto;">
-
         </div>
         <div class="one-half column">
             <hr>
             <h3>About/What I do</h3>
-            <h5>{{ contact.bio }}</h5>
+            <h6>{{ contact.bio }}</h6>
         </div>
     </div>
 </div>
-
-
 <div class="container">
     <div class="row">
         <div class="twelve columns" style="padding-top: 7rem;">
@@ -49,6 +45,5 @@
         </div>
     </div>
 </div>
-
 {% endblock %}
 </body>

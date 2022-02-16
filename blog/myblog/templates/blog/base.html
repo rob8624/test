@@ -32,6 +32,7 @@
         </div>
         </div>
 {%  endblock %}
+<body>
         <div class="container">
             <div class="row">
                 <div class="twelve columns" style="position:relative;top:30px; text-align: center;
@@ -41,9 +42,15 @@
                 </div>
             </div>
         </div>
-<div class="footer" style="">
-    Website copyright/Robert Melen 2022
-</div>
+         <div class="container">
+            <div class="row">
+                <div class="twelve columns" style=" text-align: center;">
+                   {% include "blog/footer.html" %}
+                </div>
+            </div>
+        </div>
+</body>
+
 {% include "blog/js.html" %}
-        </html>
+</html>
 

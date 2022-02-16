@@ -9,6 +9,7 @@
 <div class="container">
     <div class="row">
         <div class="twelve columns">
+            {% include "pagination.html" with page=posts %}
     {% for post in posts %}
     <h5>
 
@@ -37,5 +38,4 @@
     <hr>
 </div>
             {% endfor %}
-{% include "pagination.html" with page=posts %}
             {% endblock %}
