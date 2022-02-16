@@ -3,34 +3,32 @@
 {% block header %}{% endblock %}
 {% block featured %}{% endblock %}
 {% block content %}
+<br>
+<div style="position:relative;top:-10px; "><h1>/Galleries</h1></div>
+<br>
+<br>
 <div class="container" style="background-color: white;">
     <div class="row">
-        <div class="twelve columns" style="position:relative;top:-90px; ">
-            <span style="font-size: 3em; color: Tomato;">
-  <i class="fas fa-camera">/Gallery</i>
-         <br>
+        </div>
+        </div>
     </div>
-
+</div>
     {% include 'pagination.html' with page=galleries %}
-        <hr>
-        <div class="container">
-      <div class="row">
-          <div class="twelve columns">
-
-                     {% for album in galleries %}
+<div class="container">
+    <div class="row">
+        <div class="twelve columns">
+              {% for album in galleries %}
                      <div><a href="{{ album.get_absolute_url }}">
 				    <img src="{{ MEDIA_URL }}{{ album.thumb.gallery_thumbnail.url }}"
-                     style="float:left; padding: 0 20px 20px 0; max-width: 100% height: auto;"></a></div>
-                    <div style="padding-bottom: 12%; font-weight:bold; font-size:Large;"><a  href="{{ album.get_absolute_url }}">{{ album.title }} / (images {{ album.photos.count }})</a>
+                     style="float:left; padding: 0 60px 60px 0; max-width: 100% height: auto;"></a>/Created:{{ album.created|date:"F d Y" }}</div>
+                    <div style="padding-bottom: 12%;"><a  href="{{ album.get_absolute_url }}"><h5>{{ album.title }} / (images {{ album.photos.count }})</h5></a>
                      <h6>{{ album.summary }}</h6>
-                     <h6>Created/{{ album.created|date:"F d Y" }}</h6></div>
+                     <h6>....</h6></div>
                      <hr>
-
-                {% endfor %}
-                </div>
-            </div>
-
-  </div>
+              {% endfor %}
+        </div>
+    </div>
+</div>
 
 
 

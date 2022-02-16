@@ -13,7 +13,7 @@
                  margin-top: 10px; background-color: white; ">
                     <h6 style="color:black;">{% now "jS F Y" %}</h6>
                     <h3 style="letter-spacing: 1px; position:relative; top:5px; ">
-                        <i>Blog</i> by photographer, <strong>Robert Melen</strong></h3>
+                        <i>Blog</i> by photographer/<strong>Robert Melen</strong></h3>
                     <h6 style="font-family:Georgia;">Welcome to my Blog/I wrote this using the Django framework written in Python. There are {% total_posts %} published articles</h6>
                      {% for images in image_featured %}
                     <img src="{{images.mid_thumbnail.url }}" style="max-height: 400px;"/>
@@ -24,14 +24,7 @@
             </div>
         </div>
 {% endblock %}
-{% block sticky %}
-        <div class="container" style="background: rgb(255, 255, 255);">
-        <div id="sticky" style=" position: sticky;
-        top: 0; z-index: 5;
-         height: 80px; ">
-        </div>
-        </div>
-{%  endblock %}
+
 <body>
         <div class="container">
             <div class="row">
