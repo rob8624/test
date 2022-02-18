@@ -13,6 +13,7 @@ from os.path import join as pjoin
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFit, Resize, ResizeToFill,ResizeToCover, SmartResize
 from pilkit.processors import Thumbnail
+from django.core.files.storage import default_storage as storage
 
 
 
@@ -70,7 +71,7 @@ class Post(models.Model):
     slug = models.SlugField(unique_for_date='publish')
     author = models.ForeignKey(Author, on_delete=models.CASCADE,
                                related_name='blog_posts', null=True)
-    cover = models.ForeignKey('Photo', on_delete=models.CASCADE, null=True, related_name='cover')
+    cover = models.ForeignKey('Photo', on_delete=models.SET_NULL, null=True, related_name='cover')
 
     body = models.TextField()
     publish = models.DateTimeField(default=timezone.now)
@@ -207,16 +208,14 @@ class Photo(models.Model):
     def save(self, *args, **kwargs):
         super(Photo, self).save(*args, **kwargs)
         """Get EXIF"""
-        im = Image.open(self.image.path)
+        im = Image.open(self.image)
         try:
             info = im.getexif()[0x010e]
             self.info = info
         except KeyError:
             pass
         """Save image dimensions."""
-        im = Image.open(pjoin(DEFAULT_FILE_STORAGE , self.image.name))
-        self.width, self.height = im.size
-        im.save(self.image.path)
+
         super(Photo, self).save(*args, **kwargs)
 
     def __str__(self):
