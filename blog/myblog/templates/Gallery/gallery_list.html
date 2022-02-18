@@ -5,6 +5,8 @@
 {% block content %}
 <br>
 <div style="position:relative;top:-10px; "><h1>/Galleries</h1></div>
+{% include 'pagination.html' with page=galleries %}
+<br>
 <br>
 <br>
 <div class="container" style="background-color: white;">
@@ -13,10 +15,12 @@
         </div>
     </div>
 </div>
-    {% include 'pagination.html' with page=galleries %}
+
 <div class="container">
     <div class="row">
+
         <div class="twelve columns">
+
               {% for album in galleries %}
                      <div><a href="{{ album.get_absolute_url }}">
 				    <img src="{{ MEDIA_URL }}{{ album.thumb.gallery_thumbnail.url }}"

@@ -8,11 +8,12 @@ from exiffield.fields import ExifField
 from exiffield.getters import exifgetter
 from PIL import Image
 from django_resized import ResizedImageField
-from blog.settings import MEDIA_ROOT
+from blog.settings import DEFAULT_FILE_STORAGE
 from os.path import join as pjoin
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFit, Resize, ResizeToFill,ResizeToCover, SmartResize
 from pilkit.processors import Thumbnail
+
 
 
 
@@ -34,7 +35,8 @@ class FeaturedManager(models.Manager):
 
 
 class Author(models.Model):
-    name = models.CharField(max_length=100, null=True, blank=False)
+
+    name = models.CharField(max_length=300, null=True, blank=False)
     email = models.EmailField(max_length=70,blank=True,unique=True)
     bio = models.TextField(max_length=200, null=True, blank=True)
     photo = ResizedImageField(size=[500, 400], upload_to='authors', default='author pic')
@@ -45,7 +47,7 @@ class Author(models.Model):
     Instagram_link = models.TextField(max_length=1000, null=True, blank=True)
 
 
-    def __str__(self):
+    def __unicode__(self):
         return self.name
 
     @mark_safe
@@ -212,7 +214,7 @@ class Photo(models.Model):
         except KeyError:
             pass
         """Save image dimensions."""
-        im = Image.open(pjoin(MEDIA_ROOT, self.image.name))
+        im = Image.open(pjoin(DEFAULT_FILE_STORAGE , self.image.name))
         self.width, self.height = im.size
         im.save(self.image.path)
         super(Photo, self).save(*args, **kwargs)
@@ -225,8 +227,7 @@ class Photo(models.Model):
         return ",".join(lst)
 
     def size(self):
-        """Image size."""
-        return "%s x %s" % (self.width, self.height)
+         return "%s x %s" % (self.width, self.height)
 
 
 
