@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os
 import environ
-import dj_database_url
 import django_heroku
 
 
@@ -102,9 +101,9 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+import dj_database_url
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
-
 
 
 
