@@ -8,19 +8,24 @@
 {% block sticky %}{% endblock %}
 {% load social_share %}
 {% block content %}
-<div style="position:relative; top:-4rem;">Share
-    {% post_to_facebook object_or_url '<i class="fab fa-facebook" style="display: inline;"></i>' %}
-     {% post_to_twitter '<i class="fab fa-twitter"></i>' object_or_url '<i class="fab fa-twitter"></i>' %}</div>
+<div style="position:relative; top:-4rem;">
+    <br>
+    <br>
+   </div>
 
 <div class="container" >
-
     <div><h1 style=" border-bottom: 2px #228B22 solid; position:relative; top:-5rem">{{ post.title }}</h1></div>
     <p >
 <div style=" margin-top: -20px;font-size: 1.6vmin; position:relative; top:-5rem "><h6>Written by {{ post.author }}
-            <img src="{{ media_url }}{{post.author.photo.url }}"
+            <img src="{{ post.author.photo.url }}"
                  style="max-height: 20px; border-radius: 50%;"/>/published on {{ post.publish }}</div>
+
+
 <div style="position:relative; top:-4rem;"><strong>Summary/{{ post.summary }}</strong> </div>
     </p>
+      <div style="position:relative; top:-4rem;">Share
+    {% post_to_facebook object_or_url '<i class="fab fa-facebook" style="display: inline;"></i>' %}
+     {% post_to_twitter '<i class="fab fa-twitter"></i>' object_or_url '<i class="fab fa-twitter"></i>' %}</div>
 </div >
                 {% if messages %}
 

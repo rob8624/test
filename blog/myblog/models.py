@@ -48,7 +48,7 @@ class Author(models.Model):
     Instagram_link = models.TextField(max_length=1000, null=True, blank=True)
 
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     @mark_safe
