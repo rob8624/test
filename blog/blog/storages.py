@@ -3,6 +3,9 @@ from storages.backends.s3boto3 import S3Boto3Storage
 from tempfile import SpooledTemporaryFile
 
 class CustomS3Boto3Storage(S3Boto3Storage):
+    location = 'media'
+    file_overwrite = False
+
     """
     This is our custom version of S3Boto3Storage that fixes a bug in
     boto3 where the passed in file is closed upon upload.
