@@ -16,7 +16,7 @@ from pilkit.processors import Thumbnail
 from django.core.files.storage import default_storage as storage
 
 
-#test
+
 
 
 
