@@ -16,7 +16,7 @@ from pilkit.processors import Thumbnail
 from django.core.files.storage import default_storage as storage
 
 
-
+#test
 
 
 # TODO right click diasbled in js.html
@@ -213,8 +213,6 @@ class Photo(models.Model):
             self.info = info
         except KeyError:
             pass
-        """Save image dimensions."""
-
         super(Photo, self).save(*args, **kwargs)
 
     def __str__(self):
