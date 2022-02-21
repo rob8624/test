@@ -23,7 +23,7 @@
 
               {% for album in galleries %}
                      <div><a href="{{ album.get_absolute_url }}">
-				    <img src="{{ MEDIA_URL }}{{ album.thumb.gallery_thumbnail.url }}"
+				    <img src="{{ album.thumb.gallery_thumbnail.url }}"
                      style="float:left; padding: 0 60px 60px 0; max-width: 100% height: auto;"></a>/Created:{{ album.created|date:"F d Y" }}</div>
                     <div style="padding-bottom: 12%;"><a  href="{{ album.get_absolute_url }}"><h5>{{ album.title }} / (images {{ album.photos.count }})</h5></a>
                      <h6>{{ album.summary }}</h6>

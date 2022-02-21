@@ -33,8 +33,7 @@ SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = ['robmelen-blog.herokuapp.com']
+live_deploy = True
 
 SITE_ID = 1
 # Application definition
@@ -98,12 +97,29 @@ TEMPLATES = [
 WSGI_APPLICATION = 'blog.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-import dj_database_url
-DATABASES = {}
-DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+if live_deploy == True:
+
+    ALLOWED_HOSTS = ['robmelen-blog.herokuapp.com']
+
+    import dj_database_url
+    DATABASES = {}
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+
+elif live_deploy == False:
+
+    ALLOWED_HOSTS = ['127.0.0.1',]
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': env("DATABASE_NAME"),
+            'USER': env("DATABASE_USER"),
+            'PASSWORD': env("DATABASE_PASS"),
+
+        }
+    }
+
 
 
 
