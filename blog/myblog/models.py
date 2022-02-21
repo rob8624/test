@@ -18,13 +18,6 @@ from django.core.files.storage import default_storage as storage
 
 
 
-
-# TODO right click diasbled in js.html
-# TODO add save to action menu in admin
-# TODO put managers in seperate manager file
-# TODO its curently saveing featuired images seperatly so need to write function to gen thumnail
-
-
 class PublishedManager(models.Manager):
     def get_queryset(self):
         return super(PublishedManager, self).get_queryset().filter(status='published')
