@@ -36,9 +36,9 @@
                 {% endif %}
 
 
-<div class="container">
+
     <div class="row" >
-        <div class="twelve columns" style="text-align:center;">
+        <div class="twelve columns" style="">
                 {{ post.body|markdown }}
                  <div><a href="{% url 'myblog:post_share' post.id %}">
                         Share this post
