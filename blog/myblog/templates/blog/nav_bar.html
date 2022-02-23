@@ -7,7 +7,7 @@
                 <a>Images</a>
                 <ul>
                     <li><a href="{% url 'myblog:gallery_list' %}">Galleries</a></li>
-                    <li><a href="#">License/Purchase</a></li>
+                    <li><a href="{% url 'myblog:purchase' %}">License/Purchase</a></li>
                 </ul>
             </li>
             <li><a href="{% url 'myblog:contact_form' %}">Contact</a></li>
@@ -15,7 +15,7 @@
                 <a href="{% url 'myblog:post_archive' %}">Blog Archive</a>
             </li>
             </li>
-            <li class="u-pull-right" style="padding: 1%;"><a class="button button-primary" href="#login">Login</a></li>
+            <li class="u-pull-right" style="padding: 1%;"><a class="button button-primary" href="#login">Client Login</a></li>
             <li class="right" style="padding: 1%;" ><a class="button button-primary" href="#register">Register</a></li>
             <li class="icon">
                 <a href="javascript:void(0);" onclick="toggleMobileNav();">&#9776;</a>

@@ -20,6 +20,7 @@ urlpatterns = [
     path('archive/',
          ArchiveIndexView.as_view(model=Post, date_field="created"),
          name="post_archive"),
+    path('purchase/', views.purchase_page, name='purchase'),
 
 
 

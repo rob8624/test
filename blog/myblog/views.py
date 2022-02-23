@@ -15,7 +15,8 @@ from django.contrib import messages
 
 
 
-
+def purchase_page(request):
+    return render(request, 'post/purchase.html')
 
 
 
