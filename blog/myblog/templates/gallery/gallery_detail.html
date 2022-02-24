@@ -5,25 +5,29 @@
 <div class="Container">
     <div class="row">
         <div class="twelve columns">
-{% for im in images %}
-            <div>
-                <div style="position:relative;">
-                  <img src="{{ im.gallery_detail.url }}" style="width: 100%; height: auto%;">
-                    <div style="position:absolute; left:0px; top:0px; width: 25%; font-size: 1.2vmin; background:
-                    rgba(255, 255, 255, 0.23);"<h5>Copyright : Robert Melen</h5></div>
-                </div>
-            </div>
-        </div>
-            <div style="font-size: 1.8vmin; ">{{ im.info }}</div>
+            <h1>{{ gallery.title }}</h1>
+            <h4>{{ gallery.summary }}</h4>
+            <div style="font-size: 1.9vmin; ">All images are copyright Robert Melen, to purchase or license an image,
+                <a href="{% url 'myblog:contact_form' %}"><i>contact me.</i></a></div>
+            {% for im in images %}
+             <br>
+                <img src="{{ im.gallery_detail.url }}" style="width: 100%; height: auto%;">
+            <div style="font-size: 2.0vmin; "><b>{{ im.info }}</b></div>
             <br>
-            <br>
- {% endfor %}
+            {% endfor %}
         </div>
+    </div>
 
+</div>
+<hr/>
+<div class="Container">
+    <div class="row">
+        <div class="twelve columns">
 <a class="button button-primary" href="{% url 'myblog:gallery_list' %}">Back to Galleries</a>
-
-
-{% endblock %}
+        </div>
+        </div>
+    </div>
+        {% endblock %}
 
 
 

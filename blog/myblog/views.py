@@ -193,8 +193,10 @@ def gallery_list(request):
 
 
 def gallery_detail(request, gallery, pk):
+
     gallery = get_object_or_404(Album, slug=gallery, pk=pk)
     images = gallery.photos.all()
     return render(request,  'gallery/gallery_detail.html', {
                   'gallery': gallery,
-    'images': images})
+    'images': images
+    })
