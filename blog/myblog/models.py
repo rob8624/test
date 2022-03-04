@@ -14,6 +14,7 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFit, Resize, ResizeToFill,ResizeToCover, SmartResize
 from pilkit.processors import Thumbnail
 from django.core.files.storage import default_storage as storage
+from ckeditor.fields import RichTextField
 
 #test
 
@@ -65,7 +66,7 @@ class Post(models.Model):
                                related_name='blog_posts', null=True)
     cover = models.ForeignKey('Photo', on_delete=models.SET_NULL, null=True, related_name='cover')
 
-    body = models.TextField()
+    body = RichTextField()
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

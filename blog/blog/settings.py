@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'imagekit',
      'django_social_share',
      'storages',
+     'ckeditor',
 
 
 
@@ -203,5 +204,7 @@ DJANGORESIZED_DEFAULT_KEEP_META = True
 DJANGORESIZED_DEFAULT_FORCE_FORMAT = 'JPEG'
 DJANGORESIZED_DEFAULT_FORMAT_EXTENSIONS = {'JPEG': ".jpg"}
 DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
+
+AWS_QUERYSTRING_AUTH = False
 
 django_heroku.settings(locals(), staticfiles=False)
