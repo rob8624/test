@@ -7,12 +7,12 @@
         <div class="twelve columns">
             <h1>{{ gallery.title }}</h1>
             <h4>{{ gallery.summary }}</h4>
-            <div style="font-size:1vw; ">All images are copyright Robert Melen, to purchase or license an image,
-                <a href="{% url 'myblog:contact_form' %}"><i>contact me.</i></a></div>
+            <div style="font-size:1vw; "><h6>All images are copyright Robert Melen, to purchase or license an image,
+                <a href="{% url 'myblog:contact_form' %}"><i>contact me.</i></a></h6></h6></div>
             {% for im in images %}
              <br>
                 <img src="{{ im.gallery_detail.url }}" style="width: 100%; height: auto%;">
-            <div style="font-size: 2.0vmin; "><b>{{ im.info }}</b></div>
+            <div style="font-size: 2.0vmin; ">{{ im.info }}</div>
             <br>
             {% endfor %}
         </div>
