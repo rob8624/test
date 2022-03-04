@@ -33,8 +33,7 @@ SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-live_deploy = True
-
+live_deploy = False
 SITE_ID = 1
 # Application definition
 
